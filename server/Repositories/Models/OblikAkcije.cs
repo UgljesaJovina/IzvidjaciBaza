@@ -1,13 +1,14 @@
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Repositories.Models;
 
-public class KategorijaAkcije
+// zimovanje, tabor, smotra itd.
+public class OblikAkcije
 {
-    [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-    public int Id { get; set; }
-    [StringLength(25)]
+    public Guid Id { get; set; }
+
+    [StringLength(30)]
     public string Naziv { get; set; }
+
     public virtual ICollection<Akcija> Akcije { get; set; } = new List<Akcija>();
 }

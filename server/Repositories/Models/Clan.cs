@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using Repositories.Enums;
 
 namespace Repositories.Models;
 
@@ -12,11 +13,21 @@ public class Clan
     [StringLength(20)]
     public string Prezime { get; set; }
 
+    public Kategorija? _Kategorija;
     public DateTime DatumRodjenja { get; set; }
     public DateTime DatumUclanjenja { get; set; }
     public DateTime DatumDavanjaZaveta { get; set; }
-    public string Adresa { get; set; }
-    public Vod Vod { get; set; }
-    public virtual ICollection<OdredskaFunkcija> Funkcija { get; set; } = new List<OdredskaFunkcija>();
-    public virtual ICollection<ClanZnanje> Znanja { get; set; } = new LinkedList<ClanZnanje>();
+
+    [StringLength(50)]
+    public string? Adresa { get; set; }
+
+    public Vod? Vod { get; set; }
+
+    public virtual ICollection<Akcija> Akcije { get; set; } = new List<Akcija>();
+    public virtual ICollection<Tecaj> Tecajevi { get; set; } = new List<Tecaj>();
+    public virtual ICollection<OdredskaFunkcija> Funkcije { get; set; } = new List<OdredskaFunkcija>();
+    public virtual ICollection<ClanZnanje> Znanja { get; set; } = new List<ClanZnanje>();
+    public virtual ICollection<Kazna> Kazne { get; set; } = new List<Kazna>();
+    public virtual ICollection<Pohvala> Pohvale { get; set; } = new List<Pohvala>();
+    public virtual ICollection<PosebanProgram> PosebniProgrami { get; set; } = new List<PosebanProgram>();
 }

@@ -3,11 +3,13 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Repositories.Models;
 
+// odredska, nacionalna, medjunarodna itd.
 public class TipAkcije
 {
-    [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-    public int Id { get; set; }
+    public Guid Id { get; set; } = Guid.NewGuid();
     
     [StringLength(25)]
     public string Naziv { get; set; } 
+
+    public virtual ICollection<Akcija> Akcije { get; set; } = new List<Akcija>();
 }

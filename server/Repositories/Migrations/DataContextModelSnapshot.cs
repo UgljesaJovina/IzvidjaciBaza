@@ -144,7 +144,7 @@ namespace Repositories.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
-                    b.Property<DateTime>("DatumDavanjaZaveta")
+                    b.Property<DateTime?>("DatumDavanjaZaveta")
                         .HasColumnType("datetime2");
 
                     b.Property<DateTime>("DatumRodjenja")

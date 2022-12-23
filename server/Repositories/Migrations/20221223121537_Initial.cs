@@ -137,7 +137,7 @@ namespace Repositories.Migrations
                     Prezime = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
                     DatumRodjenja = table.Column<DateTime>(type: "datetime2", nullable: false),
                     DatumUclanjenja = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    DatumDavanjaZaveta = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    DatumDavanjaZaveta = table.Column<DateTime>(type: "datetime2", nullable: true),
                     Adresa = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
                     VodId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
                 },

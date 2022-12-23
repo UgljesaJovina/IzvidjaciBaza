@@ -12,7 +12,7 @@ using Repositories.DAL;
 namespace Repositories.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20221223111117_Initial")]
+    [Migration("20221223121537_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -147,7 +147,7 @@ namespace Repositories.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
-                    b.Property<DateTime>("DatumDavanjaZaveta")
+                    b.Property<DateTime?>("DatumDavanjaZaveta")
                         .HasColumnType("datetime2");
 
                     b.Property<DateTime>("DatumRodjenja")

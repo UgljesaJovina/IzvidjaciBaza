@@ -7,9 +7,11 @@ public class Vod
 {
     public Guid Id { get; set; } = Guid.NewGuid();
 
+    [Required]
     [StringLength(30)]
     public string Naziv { get; set; }
 
-    public Kategorija _Kategorija { get; set; }
+    [Required]
+    public Kategorija Kategorija { get; set; }
     public virtual ICollection<Clan> Clanovi { get; set; } = new List<Clan>();
 }

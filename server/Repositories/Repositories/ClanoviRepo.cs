@@ -21,7 +21,7 @@ public class ClanoviRepo : IClanovi
     public ClanListObject? CreateClan(ClanCreation? clanCreation){
         if (clanCreation is null) return null;
         Clan clan = clanCreation.GetClan();
-
+    
         ctx.Clanovi.Add(clan);
         ctx.SaveChanges();
         return ClanListObject.GetObject(clan);

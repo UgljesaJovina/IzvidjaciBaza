@@ -94,7 +94,7 @@ namespace Repositories.Migrations
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Naziv = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: false),
-                    Kategorija = table.Column<int>(name: "_Kategorija", type: "int", nullable: false)
+                    Kategorija = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -135,8 +135,9 @@ namespace Repositories.Migrations
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Ime = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
                     Prezime = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
+                    Kategorija = table.Column<int>(type: "int", nullable: true),
                     DatumRodjenja = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    DatumUclanjenja = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    DatumUclanjenja = table.Column<DateTime>(type: "datetime2", nullable: true),
                     DatumDavanjaZaveta = table.Column<DateTime>(type: "datetime2", nullable: true),
                     Adresa = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
                     VodId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
@@ -170,6 +171,27 @@ namespace Repositories.Migrations
                     table.ForeignKey(
                         name: "FK_AkcijaClan_Clanovi_ClanoviId",
                         column: x => x.ClanoviId,
+                        principalTable: "Clanovi",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Clanarine",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    DatumPlacanja = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    GodinaClanarine = table.Column<int>(type: "int", nullable: false),
+                    Iznos = table.Column<int>(type: "int", nullable: false),
+                    ClanId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Clanarine", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Clanarine_Clanovi_ClanId",
+                        column: x => x.ClanId,
                         principalTable: "Clanovi",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -280,13 +302,13 @@ namespace Repositories.Migrations
                     DatumIsteka = table.Column<DateTime>(type: "datetime2", nullable: false),
                     DodeljivacKazne = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Opis = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    ClanId = table.Column<Guid>(name: "_ClanId", type: "uniqueidentifier", nullable: false)
+                    ClanId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Kazne", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Kazne_Clanovi__ClanId",
+                        name: "FK_Kazne_Clanovi_ClanId",
                         column: x => x.ClanId,
                         principalTable: "Clanovi",
                         principalColumn: "Id",
@@ -301,13 +323,13 @@ namespace Repositories.Migrations
                     DatumDobijanja = table.Column<DateTime>(type: "datetime2", nullable: false),
                     DodeljivacPohvale = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Opis = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    ClanId = table.Column<Guid>(name: "_ClanId", type: "uniqueidentifier", nullable: false)
+                    ClanId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Pohvale", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Pohvale_Clanovi__ClanId",
+                        name: "FK_Pohvale_Clanovi_ClanId",
                         column: x => x.ClanId,
                         principalTable: "Clanovi",
                         principalColumn: "Id",
@@ -328,6 +350,11 @@ namespace Repositories.Migrations
                 name: "IX_Akcije_TipId",
                 table: "Akcije",
                 column: "TipId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Clanarine_ClanId",
+                table: "Clanarine",
+                column: "ClanId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_ClanClanZnanje_ZnanjaId",
@@ -355,14 +382,14 @@ namespace Repositories.Migrations
                 column: "TecajeviId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Kazne__ClanId",
+                name: "IX_Kazne_ClanId",
                 table: "Kazne",
-                column: "_ClanId");
+                column: "ClanId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Pohvale__ClanId",
+                name: "IX_Pohvale_ClanId",
                 table: "Pohvale",
-                column: "_ClanId");
+                column: "ClanId");
         }
 
         /// <inheritdoc />
@@ -370,6 +397,9 @@ namespace Repositories.Migrations
         {
             migrationBuilder.DropTable(
                 name: "AkcijaClan");
+
+            migrationBuilder.DropTable(
+                name: "Clanarine");
 
             migrationBuilder.DropTable(
                 name: "ClanClanZnanje");

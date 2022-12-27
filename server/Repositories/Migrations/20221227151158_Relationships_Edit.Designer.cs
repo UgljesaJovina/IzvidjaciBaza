@@ -12,8 +12,8 @@ using Repositories.DAL;
 namespace Repositories.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20221223121537_Initial")]
-    partial class Initial
+    [Migration("20221227151158_Relationships_Edit")]
+    partial class RelationshipsEdit
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -144,8 +144,8 @@ namespace Repositories.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Adresa")
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasMaxLength(75)
+                        .HasColumnType("nvarchar(75)");
 
                     b.Property<DateTime?>("DatumDavanjaZaveta")
                         .HasColumnType("datetime2");
@@ -153,13 +153,16 @@ namespace Repositories.Migrations
                     b.Property<DateTime>("DatumRodjenja")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime>("DatumUclanjenja")
+                    b.Property<DateTime?>("DatumUclanjenja")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Ime")
                         .IsRequired()
                         .HasMaxLength(20)
                         .HasColumnType("nvarchar(20)");
+
+                    b.Property<int?>("Kategorija")
+                        .HasColumnType("int");
 
                     b.Property<string>("Prezime")
                         .IsRequired()
@@ -196,16 +199,44 @@ namespace Repositories.Migrations
                     b.ToTable("ClanoviZnanja");
                 });
 
+            modelBuilder.Entity("Repositories.Models.Clanarina", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("ClanId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("DatumPlacanja")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("GodinaClanarine")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("Iznos")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ClanId");
+
+                    b.ToTable("Clanarine");
+                });
+
             modelBuilder.Entity("Repositories.Models.Kazna", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<Guid>("ClanId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<DateTime>("DatumDobijanja")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime>("DatumIsteka")
+                    b.Property<DateTime?>("DatumIsteka")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("DodeljivacKazne")
@@ -215,12 +246,9 @@ namespace Repositories.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid>("_ClanId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.HasKey("Id");
 
-                    b.HasIndex("_ClanId");
+                    b.HasIndex("ClanId");
 
                     b.ToTable("Kazne");
                 });
@@ -249,7 +277,8 @@ namespace Repositories.Migrations
 
                     b.Property<string>("Naziv")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(30)
+                        .HasColumnType("nvarchar(30)");
 
                     b.HasKey("Id");
 
@@ -262,6 +291,9 @@ namespace Repositories.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<Guid>("ClanId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<DateTime>("DatumDobijanja")
                         .HasColumnType("datetime2");
 
@@ -272,12 +304,9 @@ namespace Repositories.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid>("_ClanId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.HasKey("Id");
 
-                    b.HasIndex("_ClanId");
+                    b.HasIndex("ClanId");
 
                     b.ToTable("Pohvale");
                 });
@@ -308,7 +337,6 @@ namespace Repositories.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("MestoOdrzavanja")
-                        .IsRequired()
                         .HasMaxLength(40)
                         .HasColumnType("nvarchar(40)");
 
@@ -347,13 +375,13 @@ namespace Repositories.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<int>("Kategorija")
+                        .HasColumnType("int");
+
                     b.Property<string>("Naziv")
                         .IsRequired()
                         .HasMaxLength(30)
                         .HasColumnType("nvarchar(30)");
-
-                    b.Property<int>("_Kategorija")
-                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -459,31 +487,44 @@ namespace Repositories.Migrations
                     b.Navigation("Vod");
                 });
 
-            modelBuilder.Entity("Repositories.Models.Kazna", b =>
+            modelBuilder.Entity("Repositories.Models.Clanarina", b =>
                 {
-                    b.HasOne("Repositories.Models.Clan", "_Clan")
-                        .WithMany("Kazne")
-                        .HasForeignKey("_ClanId")
+                    b.HasOne("Repositories.Models.Clan", "Clan")
+                        .WithMany("PlaceneClanarine")
+                        .HasForeignKey("ClanId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("_Clan");
+                    b.Navigation("Clan");
+                });
+
+            modelBuilder.Entity("Repositories.Models.Kazna", b =>
+                {
+                    b.HasOne("Repositories.Models.Clan", "Clan")
+                        .WithMany("Kazne")
+                        .HasForeignKey("ClanId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Clan");
                 });
 
             modelBuilder.Entity("Repositories.Models.Pohvala", b =>
                 {
-                    b.HasOne("Repositories.Models.Clan", "_Clan")
+                    b.HasOne("Repositories.Models.Clan", "Clan")
                         .WithMany("Pohvale")
-                        .HasForeignKey("_ClanId")
+                        .HasForeignKey("ClanId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("_Clan");
+                    b.Navigation("Clan");
                 });
 
             modelBuilder.Entity("Repositories.Models.Clan", b =>
                 {
                     b.Navigation("Kazne");
+
+                    b.Navigation("PlaceneClanarine");
 
                     b.Navigation("Pohvale");
                 });

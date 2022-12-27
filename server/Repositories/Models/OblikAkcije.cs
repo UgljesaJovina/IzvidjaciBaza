@@ -7,6 +7,7 @@ public class OblikAkcije
 {
     public Guid Id { get; set; }
 
+    [Required]
     [StringLength(30)]
     public string Naziv { get; set; }
 

@@ -8,6 +8,7 @@ public class TipAkcije
 {
     public Guid Id { get; set; } = Guid.NewGuid();
     
+    [Required]
     [StringLength(25)]
     public string Naziv { get; set; } 
 

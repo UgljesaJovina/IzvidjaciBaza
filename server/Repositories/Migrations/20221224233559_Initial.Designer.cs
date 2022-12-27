@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Repositories.DAL;
 
@@ -11,9 +12,11 @@ using Repositories.DAL;
 namespace Repositories.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20221224233559_Initial")]
+    partial class Initial
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -141,16 +144,16 @@ namespace Repositories.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Adresa")
-                        .HasMaxLength(75)
-                        .HasColumnType("nvarchar(75)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<DateTime?>("DatumDavanjaZaveta")
+                        .HasColumnType("datetime2");
 
                     b.Property<DateTime>("DatumRodjenja")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime>("DatumUclanjenja")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime?>("DatumZaveta")
+                    b.Property<DateTime?>("DatumUclanjenja")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Ime")
@@ -211,7 +214,7 @@ namespace Repositories.Migrations
                     b.Property<int>("GodinaClanarine")
                         .HasColumnType("int");
 
-                    b.Property<int?>("Iznos")
+                    b.Property<int>("Iznos")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -233,7 +236,7 @@ namespace Repositories.Migrations
                     b.Property<DateTime>("DatumDobijanja")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime?>("DatumIsteka")
+                    b.Property<DateTime>("DatumIsteka")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("DodeljivacKazne")
@@ -274,8 +277,7 @@ namespace Repositories.Migrations
 
                     b.Property<string>("Naziv")
                         .IsRequired()
-                        .HasMaxLength(30)
-                        .HasColumnType("nvarchar(30)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -334,6 +336,7 @@ namespace Repositories.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("MestoOdrzavanja")
+                        .IsRequired()
                         .HasMaxLength(40)
                         .HasColumnType("nvarchar(40)");
 

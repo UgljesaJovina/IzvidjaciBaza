@@ -10,11 +10,11 @@ public class ClanListObject
     public string Prezime { get; set; }
     public DateTime DatumRodjenja { get; set; }
     public string? Kategorija { get; set; }
-    public Vod? Vod { get; set; }
-    public ICollection<OdredskaFunkcija> Funkcije { get; set; }
+    public VodShortObject? Vod { get; set; }
+    public ICollection<FuncShortObject> Funkcije { get; set; }
 
     public ClanListObject(Guid id, string ime, string prezime, DateTime datumRodjenja, string? kategorija,
-        Vod? vod, ICollection<OdredskaFunkcija> funkcije)
+        VodShortObject? vod, ICollection<FuncShortObject> funkcije)
     {
         Id = id;
         Ime = ime;
@@ -28,6 +28,7 @@ public class ClanListObject
     public ClanListObject(){}
 
     public static ClanListObject GetObject(Clan clan){
-        return new ClanListObject(clan.Id, clan.Ime, clan.Prezime, clan.DatumRodjenja, clan.Kategorija.ToString(), clan.Vod, clan.Funkcije);
+        return new ClanListObject(clan.Id, clan.Ime, clan.Prezime, clan.DatumRodjenja, clan.Kategorija.ToString(), 
+            VodShortObject.GetShortObject(clan.Vod), FuncShortObject.TransformList(clan.Funkcije));
     }
 }

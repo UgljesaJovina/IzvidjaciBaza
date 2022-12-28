@@ -24,4 +24,11 @@ public class ClanoviController : ControllerBase
 
         return clanObj is null ? BadRequest() : Ok(clanObj);
     }
+
+    [HttpGet("GetClan/{id}")]
+    public ActionResult<DisplayClan> GetClan(Guid id) {
+        DisplayClan? dClan = clanovi.GetClan(id);
+        if (dClan is null) return NotFound();
+        return Ok(dClan);
+    }
 }

@@ -9,7 +9,7 @@ export default function Clanovi() {
 
     function fetchClanovi(){
         fetch("https://localhost:7298/Clanovi/ClanoviList")
-        .then(prom => prom.json())
+        .then(res => res.json())
         .then(data => setClanovi(data));
     }
 

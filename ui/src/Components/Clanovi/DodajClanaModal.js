@@ -1,6 +1,6 @@
 export default function DodajClana({modal, setModal, fetchClanovi}){
 
-    let ime, prezime, datumRodjenja, datumUclanjenja, datumZaveta, adresa, kategorija;
+    let ime, prezime, datumRodjenja, datumUclanjenja, datumZaveta, adresa, telefon, kategorija;
 
     function dodajClana(){
 
@@ -20,12 +20,13 @@ export default function DodajClana({modal, setModal, fetchClanovi}){
                 datumRodjenja: datumRodjenja.value,
                 datumUclanjenja: datumUclanjenja.value,
                 datumZaveta: datumZaveta.value === "" ? null : datumZaveta.value,
-                adresa: adresa.value === "" ? null : adresa.value,
-                kategorija: kategorija.value === "" ? null : parseInt(kategorija.value)
+                adresa: adresa.value,
+                telefon: telefon.value,
+                kategorija: kategorija.value === "" ? null : kategorija.value
             })
         };
 
-        fetch("http://localhost:5246/Clanovi/CreateClan", options)
+        fetch("https://localhost:7298/Clanovi/CreateClan", options)
         .then (res => {
             if (res.status !== 200) {
                 alert("Problem sa upisivanjem");
@@ -37,8 +38,8 @@ export default function DodajClana({modal, setModal, fetchClanovi}){
                 datumZaveta.value = "";
                 adresa.value = "";
                 kategorija.value = "";
+                setModal(false);
             }
-            setModal(false);
             fetchClanovi();
             return res.json();
         }).then(data => console.log(data))
@@ -72,6 +73,10 @@ export default function DodajClana({modal, setModal, fetchClanovi}){
                 <div>
                     <label htmlFor="adresa">Adresa: </label>
                     <input id="adresa" name="adresa" type="text" ref={el => adresa = el} />
+                </div>
+                <div>
+                    <label htmlFor="telefon">Telefon: </label>
+                    <input id="telefon" name="telefon" type="tel" ref={el => telefon = el} />
                 </div>
                 <div>
                     <label htmlFor="kategorija">Kategorija: </label>

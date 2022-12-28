@@ -26,4 +26,11 @@ public class ClanoviRepo : IClanovi
         ctx.SaveChanges();
         return ClanListObject.GetObject(clan);
     }
+
+    public DisplayClan? GetClan(Guid id)
+    {
+        Clan? clan = ctx.Clanovi.Find(id);
+        if (clan is null) return null;
+        return DisplayClan.GetDisplayClan(clan);
+    }
 }

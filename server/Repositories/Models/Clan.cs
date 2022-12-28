@@ -8,7 +8,7 @@ public class Clan
     public Guid Id { get; set; } = Guid.NewGuid();
 
     [Required]
-    [StringLength(20)]
+    [StringLength(30)]
     public string Ime { get; set; }
 
     [Required]
@@ -22,6 +22,9 @@ public class Clan
 
     [StringLength(75)]
     public string? Adresa { get; set; }
+
+    [StringLength(12)]
+    public string? Telefon { get; set; }
 
     public Vod? Vod { get; set; }
 
@@ -42,7 +45,7 @@ public class Clan
         DatumUclanjenja = datumUclanjenja;
     }
 
-    public Clan(string ime, string prezime, Kategorija? kategorija, DateTime datumRodjenja, DateTime datumUclanjenja, DateTime? datumZaveta, string? adresa)
+    public Clan(string ime, string prezime, Kategorija? kategorija, DateTime datumRodjenja, DateTime datumUclanjenja, DateTime? datumZaveta, string? adresa, string? telefon)
     {
         Ime = ime;
         Prezime = prezime;
@@ -51,6 +54,7 @@ public class Clan
         DatumUclanjenja = datumUclanjenja;
         DatumZaveta = datumZaveta;
         Adresa = adresa;
+        Telefon = telefon;
     }
 
     public Clan(){}

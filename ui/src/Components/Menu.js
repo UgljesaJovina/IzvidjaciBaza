@@ -8,6 +8,7 @@ export default function Menu(){
                 <Link to="/" className="link">Clanovi</Link>
                 <Link to="/akcije" className="link">Akcije</Link>
                 <Link to="/tecajevi" className="link">Tecajevi</Link>
+                <Link to="/vodovi" className="link">Vodovi</Link>
             </div>
             <Outlet/>
         </>

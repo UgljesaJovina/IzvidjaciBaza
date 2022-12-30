@@ -19,7 +19,7 @@ export default function Clanovi() {
 
     return (
         <div className="outlet">
-            <button className="addBtn" onClick={() => {setModal(curr => !curr)}}>Dodaj Clana</button>
+            <button className="addBtn" onClick={() => {setModal(true)}}>Dodaj Clana</button>
             <div className="table">
                 <div className="row initial">
                     <label style={{flex:"1", border:"none"}}>Br.</label>

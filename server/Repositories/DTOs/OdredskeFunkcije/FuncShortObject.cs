@@ -13,12 +13,9 @@ public class FuncShortObject
         Naziv = naziv;
     }
 
-    public static FuncShortObject? GetShortObject(OdredskaFunkcija? funkcija){
-        if (funkcija is null) return null;
-        return new FuncShortObject(funkcija.Id, funkcija.Naziv); 
-    }
+    public FuncShortObject(OdredskaFunkcija funkcija) :this(funkcija.Id, funkcija.Naziv){}
 
-    public static ICollection<FuncShortObject?> TransformList(ICollection<OdredskaFunkcija> funckije) {
-        return funckije.Select(f => FuncShortObject.GetShortObject(f)).ToList();
+    public static ICollection<FuncShortObject> TransformList(ICollection<OdredskaFunkcija> funckije) {
+        return funckije.Select(f => new FuncShortObject(f)).ToList();
     }
 }

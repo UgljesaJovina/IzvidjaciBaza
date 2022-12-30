@@ -22,7 +22,7 @@ export default function DodajClana({modal, setModal, fetchClanovi}){
                 datumZaveta: datumZaveta.value === "" ? null : datumZaveta.value,
                 adresa: adresa.value,
                 telefon: telefon.value,
-                kategorija: kategorija.value === "" ? null : kategorija.value
+                kategorija: kategorija.value === "" ? null : parseInt(kategorija.value)
             })
         };
 
@@ -37,10 +37,12 @@ export default function DodajClana({modal, setModal, fetchClanovi}){
                 datumUclanjenja.value = "";
                 datumZaveta.value = "";
                 adresa.value = "";
+                telefon.value = "";
                 kategorija.value = "";
                 setModal(false);
             }
             fetchClanovi();
+            console.log(res);
             return res.json();
         }).then(data => console.log(data))
     }

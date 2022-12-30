@@ -79,3 +79,34 @@
     cursor: pointer;
     color: #d0ff00;
 }
+
+.messageContainer {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #ffe8d6;
+    width: 40%;
+    height: 25%;
+    border-radius: 20px;
+    border-width: 1px;
+    border-color: black;
+    border-style: solid;
+    padding: 1%;
+    display: flex;
+}
+
+.messageContainer label {
+    align-self: center;
+    font-size: x-large;
+}
+
+.messageContainer button {
+    align-self: flex-end;
+    border-radius: 10px;
+    border-style: none;
+    font-size: larger;
+    background-color: rgb(154, 154, 154);
+    color: white;
+    padding: 1%;
+}

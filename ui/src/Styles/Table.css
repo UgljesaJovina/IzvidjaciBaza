@@ -1,14 +1,14 @@
 .addBtn {
     align-self: flex-end;
-    margin: 3% 10% 3% 0%;
+    margin: 3% 7% 3% 0%;
     font-size: x-large;
     background-color: #dcb75c;
-    border-radius: 10px;
+    border-radius: 11px;
     padding: 1.5%;
     border-width: 0;
     color: white;
     cursor: pointer;
-    transition: background-color 0.25s, color .25s;
+    transition: all .25s;
 }
 
 .addBtn:hover {

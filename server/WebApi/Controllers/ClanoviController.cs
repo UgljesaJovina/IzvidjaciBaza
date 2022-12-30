@@ -18,6 +18,13 @@ public class ClanoviController : ControllerBase
         return Ok(clanovi.GetClanovi());
     }
 
+    [HttpGet("GetClan/{id}")]
+    public ActionResult<DisplayClan> GetClan(Guid id) {
+        DisplayClan? dClan = clanovi.GetClan(id);
+        if (dClan is null) return NotFound();
+        return Ok(dClan);
+    }
+
     [HttpPost("CreateClan")]
     public ActionResult<ClanListObject> CreateClan(ClanCreation? clanCreation){
         ClanListObject? clanObj = clanovi.CreateClan(clanCreation);
@@ -25,10 +32,9 @@ public class ClanoviController : ControllerBase
         return clanObj is null ? BadRequest() : Ok(clanObj);
     }
 
-    [HttpGet("GetClan/{id}")]
-    public ActionResult<DisplayClan> GetClan(Guid id) {
-        DisplayClan? dClan = clanovi.GetClan(id);
-        if (dClan is null) return NotFound();
-        return Ok(dClan);
+    [HttpDelete("DeleteClan/{id}")]
+    public ActionResult DeleteClan(Guid id){
+        if (clanovi.DeleteClan(id)) return Ok();
+        return NotFound();
     }
 }

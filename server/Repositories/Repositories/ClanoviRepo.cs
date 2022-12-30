@@ -15,7 +15,7 @@ public class ClanoviRepo : IClanovi
     }
 
     public List<ClanListObject> GetClanovi(){
-        return ctx.Clanovi.Select(c => ClanListObject.GetObject(c)).ToList();
+        return ctx.Clanovi.OrderBy(c => c.Ime).ThenBy(c => c.Prezime).Select(c => ClanListObject.GetObject(c)).ToList();
     }
 
     public ClanListObject? CreateClan(ClanCreation? clanCreation){
@@ -31,6 +31,17 @@ public class ClanoviRepo : IClanovi
     {
         Clan? clan = ctx.Clanovi.Find(id);
         if (clan is null) return null;
-        return DisplayClan.GetDisplayClan(clan);
+        return new DisplayClan(clan);
+    }
+
+    public bool DeleteClan(Guid id)
+    {
+        Clan? clan = ctx.Clanovi.Find(id);
+
+        if (clan is null) return false;
+
+        ctx.Clanovi.Remove(clan);
+        ctx.SaveChanges();
+        return true;
     }
 }

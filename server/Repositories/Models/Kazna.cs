@@ -13,4 +13,15 @@ public class Kazna
     public string Opis { get; set; }
     [Required]
     public Clan Clan { get; set; }
+
+    public Kazna(){}
+
+    public Kazna(DateTime datumDobijanja, DateTime? datumIsteka, string? dodeljivacKazne, string opis, Clan clan)
+    {
+        DatumDobijanja = datumDobijanja;
+        DatumIsteka = datumIsteka;
+        DodeljivacKazne = dodeljivacKazne;
+        Opis = opis;
+        Clan = clan;
+    }
 }

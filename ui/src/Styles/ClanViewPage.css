@@ -1,13 +1,30 @@
 .goBackButton {
     align-self: flex-start;
-    margin: 2% 2%;
+    margin: 2%;
     padding: 5px 8px;
     font-size: x-large;
     background-color: rgba(255, 255, 255, 0.3);
     border: 1px rgba(0, 0, 0, 0.5) solid;
     border-radius: 50%;
-    cursor: pointer;
     transition: all .25s;
+}
+
+.deleteButton {
+    background-color: #fb2222;
+    color: gainsboro;
+    align-self: flex-end;
+    margin: 0% 4% 2%;
+    font-size: x-large;
+    border-style: none;
+    border-radius: 15px;
+    padding: 1%;
+    cursor: pointer;
+    transition: all .15s;
+}
+
+.deleteButton:hover {
+    background-color: #fd5555;
+    color: black;
 }
 
 .goBackButton:hover {
@@ -36,9 +53,8 @@
 
 .gridRow {
     display: flex;
-    background-color: #b3cbe4b6;
-    margin-bottom: 3%;
-    border-radius: 15px;
+    background-color: #b3cbe4;
+    margin-bottom: 2%;
 }
 
 .gridRow>div {
@@ -48,7 +64,7 @@
 }
 
 .gridRow label { 
-    font-size: larger;
+    font-size: 1.25em;
     text-align: center;
 }
 
@@ -57,16 +73,40 @@
 }
 
 .gridRow.info label {
-    margin: 10px;
+    margin: 5px;
+    align-self: center;
+    height: 1.5rem;
+    transition: font-size .15s;
 }
 
-.gridRow>div>label,
-.objListing {
-    outline: 1px black dashed;
+.gridRow.info label:hover {
+    font-size: 1.5em;
+}
+
+.gridRow:not(.info)>div>label {
+    margin: 2% 5% 0;
+    padding: 0 2%;
+    font-size: x-large;
+    text-align: start;
+    border-bottom: 1px black solid;
 }
 
 .objListing {
-    max-height: 100px;
+    height: 150px;
     overflow-x: hidden;
     overflow-y: auto;
+    background-color: white;
+    margin: 2% 5% 5%;
+    display: flex;
+    flex-direction: column;
+}
+
+.objListing>label {
+    padding: 1% 0;
+    background-color: rgb(218, 218, 218);
+    transition: all .25s;
+}
+
+.objListing>label:hover {
+    background-color: rgb(232, 232, 232);
 }

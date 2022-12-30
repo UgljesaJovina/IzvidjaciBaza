@@ -13,15 +13,15 @@ public class DisplayClan
     public DateTime? DatumZaveta { get; set; }
     public string? Adresa { get; set; }
     public string? Telefon { get; set; }
-    public Vod? Vod { get; set; }
+    public VodShortObject? Vod { get; set; }
     public virtual ICollection<AkcijaShortObject> Akcije { get; set; }
-    public virtual ICollection<Tecaj> Tecajevi { get; set; }
-    public virtual ICollection<OdredskaFunkcija> Funkcije { get; set; }
-    public virtual ICollection<ClanZnanje> Znanja { get; set; }
-    public virtual ICollection<Pohvala> Pohvale { get; set; }
-    public virtual ICollection<Kazna> Kazne { get; set; }
-    public virtual ICollection<PosebanProgram> PosebniProgrami { get; set; }
-    public virtual ICollection<Clanarina> PlaceneClanarine { get; set; }
+    public virtual ICollection<TecajShortObject> Tecajevi { get; set; }
+    public virtual ICollection<FuncShortObject> Funkcije { get; set; }
+    public virtual ICollection<ZnanjeShortObject> Znanja { get; set; }
+    public virtual ICollection<PohvalaShortObj> Pohvale { get; set; }
+    public virtual ICollection<KaznaShortObject> Kazne { get; set; }
+    public virtual ICollection<PosProgShortObject> PosebniProgrami { get; set; }
+    public virtual ICollection<ClanarinaShortObject> PlaceneClanarine { get; set; }
 
     public DisplayClan(Clan clan)
     {
@@ -32,19 +32,15 @@ public class DisplayClan
         DatumUclanjenja = clan.DatumUclanjenja;
         DatumZaveta = clan.DatumZaveta;
         Adresa = clan.Adresa;
-        Vod = clan.Vod;
         Telefon = clan.Telefon;
+        Vod = VodShortObject.GetShortObject(clan.Vod);
         Akcije = AkcijaShortObject.TransformList(clan.Akcije);
-        Tecajevi = clan.Tecajevi;
-        Funkcije = clan.Funkcije;
-        Znanja = clan.Znanja;
-        Pohvale = clan.Pohvale;
-        Kazne = clan.Kazne;
-        PosebniProgrami = clan.PosebniProgrami;
-        PlaceneClanarine = clan.PlaceneClanarine;
-    }
-
-    public static DisplayClan GetDisplayClan (Clan clan) {
-        return new DisplayClan(clan);
+        Tecajevi = TecajShortObject.TransformList(clan.Tecajevi);
+        Funkcije = FuncShortObject.TransformList(clan.Funkcije);
+        Znanja = ZnanjeShortObject.TransformList(clan.Znanja);
+        Pohvale = PohvalaShortObj.TransformList(clan.Pohvale);
+        Kazne = KaznaShortObject.TransformList(clan.Kazne);
+        PosebniProgrami = PosProgShortObject.TransformList(clan.PosebniProgrami);
+        PlaceneClanarine = ClanarinaShortObject.TransfromList(clan.PlaceneClanarine);
     }
 }

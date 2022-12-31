@@ -58,7 +58,7 @@
 }
 
 .gridRow>div {
-    flex: 1;
+    min-width: 50%;
     display: flex;
     flex-direction: column;
 }
@@ -79,6 +79,10 @@
     transition: font-size .15s;
 }
 
+.gridRow.info>div {
+    width: 100%;
+}
+
 .gridRow.info label:hover {
     font-size: 1.5em;
 }
@@ -92,7 +96,7 @@
 }
 
 .objListing {
-    height: 150px;
+    height: 200px;
     overflow-x: hidden;
     overflow-y: auto;
     background-color: white;
@@ -101,12 +105,34 @@
     flex-direction: column;
 }
 
-.objListing>label {
+.objListing label {
     padding: 1% 0;
     background-color: rgb(218, 218, 218);
     transition: all .25s;
 }
 
-.objListing>label:hover {
+.objListing label:hover {
     background-color: rgb(232, 232, 232);
+}
+
+.kaznaShortObject label {
+    width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    padding-left: 2%;
+}
+
+.kaznaShortObject button {
+    border-style: none;
+    background-color: #fd4848;
+    color: white;
+    font-size: x-large;
+    padding: 0 10px;
+    transition: all .25s;
+}
+
+.kaznaShortObject button:hover {
+    background-color: #fa8282;
+    color: black;
 }

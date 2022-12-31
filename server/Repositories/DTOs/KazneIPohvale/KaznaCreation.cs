@@ -8,9 +8,8 @@ public class KaznaCreation
     public DateTime? DatumIsteka { get; set; }
     public string? DodeljivacKazne { get; set; }
     public string Opis { get; set; }
-    public Clan Clan { get; set; }
 
     public Kazna GetKazna(){
-        return new Kazna(DatumDobijanja, DatumIsteka, DodeljivacKazne, Opis, Clan);
+        return new Kazna(DatumDobijanja, DatumIsteka, DodeljivacKazne, Opis);
     }
 }

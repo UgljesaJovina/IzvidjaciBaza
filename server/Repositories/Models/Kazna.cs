@@ -16,12 +16,11 @@ public class Kazna
 
     public Kazna(){}
 
-    public Kazna(DateTime datumDobijanja, DateTime? datumIsteka, string? dodeljivacKazne, string opis, Clan clan)
+    public Kazna(DateTime datumDobijanja, DateTime? datumIsteka, string? dodeljivacKazne, string opis)
     {
         DatumDobijanja = datumDobijanja;
         DatumIsteka = datumIsteka;
         DodeljivacKazne = dodeljivacKazne;
         Opis = opis;
-        Clan = clan;
     }
 }

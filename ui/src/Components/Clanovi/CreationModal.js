@@ -1,4 +1,4 @@
-export default function DodajClana({modal, setModal, fetchClanovi}){
+export default function CreateClan({modal, setModal, setLista}){
 
     let ime, prezime, datumRodjenja, datumUclanjenja, datumZaveta, adresa, telefon, kategorija;
 
@@ -41,10 +41,8 @@ export default function DodajClana({modal, setModal, fetchClanovi}){
                 kategorija.value = "";
                 setModal(false);
             }
-            fetchClanovi();
-            console.log(res);
             return res.json();
-        }).then(data => console.log(data))
+        }).then(data => setLista(curr => [...curr, data]));
     }
 
     return (

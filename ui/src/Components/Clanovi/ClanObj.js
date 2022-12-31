@@ -1,14 +1,17 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router";
+import KaznaModal from "../KaznePohvale/KaznaModal";
+import KaznaShortObject from "../KaznePohvale/KaznaShortObject";
 import DeletionModal from "./DeletionModal";
-import ShortObject from "./ShortObject";
 
 export default function ClanObj() {
     const navigate = useNavigate();
     const params = useParams();
     let id = params.id;
     const [clan, setClan] = useState(null);
-    const [modal, setModal] = useState(false);
+    const [deleteModal, setDeleteModal] = useState(false);
+    const [kazna, setKazna] = useState({});
+    const [kaznaModal, setKaznaModal] = useState(false);
 
     useEffect(() => {
         fetch("https://localhost:7298/Clanovi/GetClan/" + id)
@@ -20,11 +23,12 @@ export default function ClanObj() {
             return res.json();
         }).then(data => {
             setClan(data);
+            console.log(data);
         });
     }, [id]);
 
 
-    function Delete(){
+    function DeleteClan(){
         fetch("https://localhost:7298/Clanovi/DeleteClan/" + id, {method: "DELETE"})
         .then (res => {
             if (res.status !== 200){
@@ -34,7 +38,31 @@ export default function ClanObj() {
             navigate(-1);
         })
     }
-    
+
+    function openKaznaModal(id) {
+        fetch("https://localhost:7298/Clanovi/GetKazna/" + id)
+        .then(res => {
+            if (res.status !== 200){
+                alert("Kazna nije pronadjena");
+                return;
+            }
+            return res.json();
+        }).then(data => {
+            setKazna(data);
+            setKaznaModal(true);
+        });
+    }
+
+    function deleteKazna(id) {
+        fetch("https://localhost:7298/Clanovi/DeleteKazna/" + id, {method:"DELETE"})
+        .then(res => {
+            if (res.status !== 200){
+                alert("Ta kazna nije pronadjena");
+                return;
+            }
+            return res.json();
+        }).then(data => setClan(curr => {return {...curr, kazne: [...curr.kazne].filter(k => k.id !== data.id)}}));
+    }
 
     if (!clan){
         return;
@@ -43,7 +71,7 @@ export default function ClanObj() {
     return(
     <div className="outlet"  >
         <button className="goBackButton" onClick={() => navigate(-1)}>←</button>
-        <button className="deleteButton" onClick={() => setModal(true)}>Obrisi Clana</button>
+        <button className="deleteButton" onClick={() => setDeleteModal(true)}>Obrisi Clana</button>
         <h1 className="name">{clan.ime} {clan.prezime}</h1>
         <h2 className="category"><i>{clan.kategorija ? clan.kategorija.replace("_", " ") : "Nema" }</i></h2>
         <div className="viewGrid">
@@ -70,25 +98,13 @@ export default function ClanObj() {
                 <div>
                     <label>Akcije</label>
                     <div className="objListing">
-                        {clan.akcije.map(x => <ShortObject id={x.id} naziv={x.naziv} path={"akcija"} />)}
+                        
                     </div>
                 </div>
                 <div>
                     <label>Tecajevi</label>
                     <div className="objListing">
-                        <label>1</label>
-                        <label>2</label>
-                        <label>3</label>
-                        <label>4</label>
-                        <label>5</label>
-                        <label>6</label>
-                        <label>7</label>
-                        <label>8</label>
-                        <label>9</label>
-                        <label>10</label>
-                        <label>11</label>
-                        <label>12</label>
-                        <label>13</label>
+                        
                     </div>
                 </div>
             </div>
@@ -116,12 +132,13 @@ export default function ClanObj() {
                 <div>
                     <label>Kazne</label>
                     <div className="objListing">
-
+                        {clan.kazne.map(k => <KaznaShortObject key={k.id} id={k.id} text={k.opis} openModal={openKaznaModal} 
+                            delFunc={() => deleteKazna(k.id)} />)}
                     </div>
                 </div>
             </div>
             <div className="gridRow" style={{margin: "0 25%"}}>
-                <div>
+                <div style={{width: "100%"}}>
                     <label>Placene Clanarine</label>
                     <div className="objListing">
 
@@ -129,8 +146,9 @@ export default function ClanObj() {
                 </div>
             </div>
         </div>
-        <DeletionModal message={`Da li ste sigurni da zelite da obrisete clana '${clan.ime} ${clan.prezime}'?`} modal={modal}
-            setModal={setModal} ok={Delete} />
+        <DeletionModal message={`Da li ste sigurni da zelite da obrisete clana '${clan.ime} ${clan.prezime}'?`} modal={deleteModal}
+            setModal={setDeleteModal} ok={DeleteClan} />
+        <KaznaModal modal={kaznaModal} setModal={setKaznaModal} kazna={kazna} />
     </div>); 
     //Dodati onClick za labelu sa vodom ... kad napravim vodove ffs
 }

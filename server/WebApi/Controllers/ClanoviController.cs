@@ -27,14 +27,35 @@ public class ClanoviController : ControllerBase
 
     [HttpPost("CreateClan")]
     public ActionResult<ClanListObject> CreateClan(ClanCreation? clanCreation){
-        ClanListObject? clanObj = clanovi.CreateClan(clanCreation);
-
-        return clanObj is null ? BadRequest() : Ok(clanObj);
+        ClanListObject? c = clanovi.CreateClan(clanCreation);
+        if (c is null) return BadRequest();
+        return Ok(c);
     }
 
     [HttpDelete("DeleteClan/{id}")]
     public ActionResult DeleteClan(Guid id){
         if (clanovi.DeleteClan(id)) return Ok();
         return NotFound();
+    }
+
+    [HttpGet("GetKazna/{kaznaId}")]
+    public ActionResult<DisplayKazna> GetKazne(Guid kaznaId){
+        DisplayKazna? kazna = clanovi.GetKazna(kaznaId);
+        if (kazna is null) return NotFound();
+        return Ok(kazna);
+    }
+
+    [HttpPost("CreateKazna/{id}")]
+    public ActionResult<KaznaListObject> CreateKazna([FromRoute]Guid id, [FromBody]KaznaCreation? kazna){
+        KaznaListObject? retKazna = clanovi.CreateKazna(id, kazna);
+        if (retKazna is null) return BadRequest();
+        return Ok(retKazna);
+    }
+
+    [HttpDelete("DeleteKazna/{id}")]
+    public ActionResult<KaznaListObject> DeleteKazna(Guid id){
+        KaznaListObject? k = clanovi.DeleteKazna(id);
+        if (k is null) return NotFound();
+        return Ok(k);
     }
 }

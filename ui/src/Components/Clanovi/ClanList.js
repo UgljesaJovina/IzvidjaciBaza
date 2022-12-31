@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import ClanListObj from "./ClanListObj";
-import DodajClana from "./DodajClanaModal";
+import CreateClan from "./CreationModal";
 
 export default function Clanovi() {
 
@@ -32,7 +32,7 @@ export default function Clanovi() {
                 {clanovi.map((el, i) => <ClanListObj key={el.id} id={el.id} br={i+1} ime={el.ime} prezime={el.prezime} 
                     vod={el.vod} datumRodjenja={el.datumRodjenja} kategorija={el.kategorija} />)}
             </div>
-            <DodajClana modal={modal} setModal={setModal} fetchClanovi={fetchClanovi} />
+            <CreateClan modal={modal} setModal={setModal} setLista={setClanovi} />
         </div>
     );
 }

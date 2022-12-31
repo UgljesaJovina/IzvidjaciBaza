@@ -6,9 +6,9 @@ export default function Menu(){
             <div className="menu">
                 <h1>MENU</h1>
                 <Link to="/" className="link">Clanovi</Link>
+                <Link to="/vodovi" className="link">Vodovi</Link>
                 <Link to="/akcije" className="link">Akcije</Link>
                 <Link to="/tecajevi" className="link">Tecajevi</Link>
-                <Link to="/vodovi" className="link">Vodovi</Link>
             </div>
             <Outlet/>
         </>

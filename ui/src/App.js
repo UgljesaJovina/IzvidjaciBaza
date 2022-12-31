@@ -1,6 +1,6 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Menu from "./Components/Menu";
-import Clanovi from "./Components/Clanovi/ListaClanova";
+import Clanovi from "./Components/Clanovi/ClanList";
 import Akcije from "./Components/Akcije";
 import Tecajevi from "./Components/Tecajevi";
 import "./Styles/Menu.css"

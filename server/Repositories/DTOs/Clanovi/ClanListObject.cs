@@ -27,8 +27,6 @@ public class ClanListObject
 
     public ClanListObject(){}
 
-    public static ClanListObject GetObject(Clan clan){
-        return new ClanListObject(clan.Id, clan.Ime, clan.Prezime, clan.DatumRodjenja, clan.Kategorija.ToString(), 
-            VodShortObject.GetShortObject(clan.Vod), FuncShortObject.TransformList(clan.Funkcije));
-    }
+    public ClanListObject(Clan clan) : this(clan.Id, clan.Ime, clan.Prezime, clan.DatumRodjenja, clan.Kategorija.ToString(), 
+            VodShortObject.GetShortObject(clan.Vod), FuncShortObject.TransformList(clan.Funkcije)) {}
 }

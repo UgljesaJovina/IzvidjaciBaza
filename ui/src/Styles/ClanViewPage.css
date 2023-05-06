@@ -7,6 +7,11 @@
     border: 1px rgba(0, 0, 0, 0.5) solid;
     border-radius: 50%;
     transition: all .25s;
+    cursor: pointer;
+}
+
+.goBackButton:hover {
+    background-color: rgba(255, 255, 255, 0.8);
 }
 
 .deleteButton {
@@ -27,11 +32,11 @@
     color: black;
 }
 
-.goBackButton:hover {
-    background-color: rgba(255, 255, 255, 0.8);
-}
-
 .name {
+    position: sticky;
+    top: 0;
+    padding-top: 2%;
+    background-color: wheat;
     margin: 0 2%;
     padding-left: 2%;
     padding-bottom: 10px;
@@ -95,7 +100,40 @@
     border-bottom: 1px black solid;
 }
 
-.objListing {
+.listTitle {
+    display: flex;
+    border-bottom: 1px black solid;
+    margin: 2% 5% 0;
+    justify-content: center;
+}
+
+.listTitle>label {
+    margin: 0 2%;
+    padding: 0;
+    font-size: x-large;
+    text-align: start;
+}
+
+.listTitle>button {
+    padding: 0 5%;
+    margin-bottom: 1%;
+    margin-left: auto;
+    margin-right: 3%;
+    background-color: #cfe1c9;
+    color: #a53860;
+    border: none;
+    font-size: x-large;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all .2s;
+}
+
+.listTitle>button:hover {
+    background-color: #e5eee2;
+    color: #7e2345;
+}
+
+.objList {
     height: 200px;
     overflow-x: hidden;
     overflow-y: auto;
@@ -105,14 +143,24 @@
     flex-direction: column;
 }
 
-.objListing label {
+.shortObject {
     padding: 1% 0;
     background-color: rgb(218, 218, 218);
     transition: all .25s;
+    cursor: pointer;
 }
 
-.objListing label:hover {
+.shortObject:hover {
     background-color: rgb(232, 232, 232);
+}
+
+.shortObject.expired {
+    background-color: #fb2222;
+    color: white;
+}
+
+.shortObject.expired:hover {
+    background-color: #fa8282;
 }
 
 .kaznaShortObject label {
@@ -130,6 +178,7 @@
     font-size: x-large;
     padding: 0 10px;
     transition: all .25s;
+    cursor: pointer;
 }
 
 .kaznaShortObject button:hover {

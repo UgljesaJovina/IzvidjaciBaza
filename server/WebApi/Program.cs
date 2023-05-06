@@ -2,6 +2,8 @@ using Repositories.DAL;
 using Microsoft.EntityFrameworkCore;
 using Repositories.Interfaces;
 using Repositories.Repositories;
+using Services.Interfaces;
+using Services.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,7 +14,12 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddTransient<IClanovi, ClanoviRepo>();
+#region Dependency Injection
+
+    builder.Services.AddTransient<IClanRepo, ClanRepository>();
+    builder.Services.AddTransient<IClanService, ClanService>();
+
+#endregion
 
 builder.Services.AddDbContext<DataContext>(options => 
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"),

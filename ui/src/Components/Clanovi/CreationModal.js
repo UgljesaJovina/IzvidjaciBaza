@@ -26,7 +26,7 @@ export default function CreateClan({modal, setModal, setLista}){
             })
         };
 
-        fetch("https://localhost:7298/Clanovi/CreateClan", options)
+        fetch("https://localhost:7298/Clan/CreateClan", options)
         .then (res => {
             if (res.status !== 200) {
                 alert("Problem sa upisivanjem");
@@ -83,10 +83,10 @@ export default function CreateClan({modal, setModal, setLista}){
                     <select id="kategorija" name="kategorija" defaultValue="" ref={el => kategorija = el}>
                         <option value="" disabled hidden>Izaberite Kategoriju</option>
                         <option value={0}>Poletarci</option>
-                        <option value={1}>Pcelice</option>
-                        <option value={2}>Mladji Izvidjaci</option>
+                        <option value={1}>Pčelice</option>
+                        <option value={2}>Mladji Izvidjači</option>
                         <option value={3}>Mladje Planinke</option>
-                        <option value={4}>Stariji Izvidjaci</option>
+                        <option value={4}>Stariji Izvidjači</option>
                         <option value={5}>Starije Planinke</option>
                         <option value={6}>Brdjani</option>
                         <option value={7}>Brdjanke</option>

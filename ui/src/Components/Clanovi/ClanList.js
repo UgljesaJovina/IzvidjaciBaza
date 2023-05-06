@@ -8,7 +8,7 @@ export default function Clanovi() {
     const [modal, setModal] = useState(false);
 
     function fetchClanovi(){
-        fetch("https://localhost:7298/Clanovi/ClanoviList")
+        fetch("https://localhost:7298/Clan/ClanList")
         .then(res => res.json())
         .then(data => setClanovi(data));
     }

@@ -23,4 +23,9 @@ public class Kazna
         DodeljivacKazne = dodeljivacKazne;
         Opis = opis;
     }
+
+    public override string ToString()
+    {
+        return $"{Id}\n{DatumDobijanja}\n{DatumIsteka}\n{DodeljivacKazne}\n{Opis}\n{Clan.Id}";
+    }
 }

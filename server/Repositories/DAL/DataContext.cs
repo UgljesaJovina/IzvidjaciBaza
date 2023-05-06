@@ -9,6 +9,7 @@ public class DataContext : DbContext {
     public DbSet<Clan> Clanovi { get; set; }
     public DbSet<Clanarina> Clanarine { get; set; }
     public DbSet<OdredskaFunkcija> OdredskeFunkcije { get; set; }
+    public DbSet<ClanFunkcija> FunkcijeClanova { get; set; }
     public DbSet<ClanZnanje> ClanoviZnanja { get; set; }
     public DbSet<PosebanProgram> PosebniProgrami { get; set; }
     public DbSet<Pohvala> Pohvale { get; set; }

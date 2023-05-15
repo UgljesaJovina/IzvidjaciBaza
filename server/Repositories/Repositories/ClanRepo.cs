@@ -59,7 +59,7 @@ public class ClanRepository : Repository<Clan>, IClanRepo
 
     public Kazna? CreateKazna(Guid clanId, Kazna? kazna)
     {
-        Clan? c = table.Include(clan => clan.Kazne).FirstOrDefault(clan => clan.Id == clanId);
+        Clan? c = table.Find(clanId);
         if (c is null || kazna is null) return null;
 
         kazna.Clan = c;
@@ -69,24 +69,183 @@ public class ClanRepository : Repository<Clan>, IClanRepo
         return kazna;
     }
 
-    public Kazna? GetKaznaById(Guid clanId, Guid kaznaId)
+    public Kazna? GetKaznaById(Guid kaznaId)
     {
-        Clan? c = table.Include(c => c.Kazne).FirstOrDefault(c => c.Id == clanId);
-        if (c is null) return null;
-
-        return c.Kazne.FirstOrDefault(k => k.Id == kaznaId);
+        return ctx.Kazne.Find(kaznaId);
     }
 
-    public bool DeleteKazna(Guid clanId, Guid kaznaId)
+    public bool DeleteKazna(Guid kaznaId)
     {
-        Clan? c = table.Include(c => c.Kazne).FirstOrDefault(c => c.Id == clanId);
-        Kazna? k = c?.Kazne.FirstOrDefault(k => k.Id == kaznaId);
-        if (c is null || k is null) return false;
+        Kazna? k = ctx.Kazne.Find(kaznaId);
+        if (k is null) return false;
 
-        c.Kazne.Remove(k);
+        ctx.Kazne.Remove(k);
 
         Save();
 
         return true;
+    }
+
+    public Pohvala? CreatePohvala(Guid clanId, Pohvala? pohvala)
+    {
+        Clan? c = table.Find(clanId);
+        if (c is null || pohvala is null) return null;
+
+        pohvala.Clan = c;
+        ctx.Pohvale.Add(pohvala);
+
+        Save();
+        return pohvala;
+    }
+
+    public Pohvala? GetPohvalaById(Guid pohvalaId)
+    {
+        return ctx.Pohvale.Find(pohvalaId);
+    }
+
+    public bool DeletePohvala(Guid pohvalaId)
+    {
+        Pohvala? p = ctx.Pohvale.Find(pohvalaId);
+        if (p is null) return false;
+
+        ctx.Pohvale.Remove(p);
+        Save();
+
+        return true;
+    }
+
+    public ClanZnanje? CreateZnanje(ClanZnanje? znanje)
+    {
+        if (znanje is null) return null;
+        ctx.ClanoviZnanja.Add(znanje);
+        Save();
+
+        return znanje;
+    }
+
+    public ClanZnanje? AddZnanje(Guid clanId, ClanZnanje? znanje)
+    {
+        Clan? c = table.Find(clanId);
+        if (c is null || znanje is null) return null;
+
+        znanje.Clanovi.Add(c);
+        if (!ctx.ClanoviZnanja.Contains(znanje)) return null;
+        Save();
+
+        return znanje;
+    }
+
+    public ClanZnanje? GetMaxZnanje(Guid clanId)
+    {
+        Clan? c = table.Include(clan => clan.Znanja).FirstOrDefault(clan => clan.Id == clanId);
+        if (c is null) return null;
+
+        ClanZnanje? maxZnanje = null;
+        foreach (var cz in c.Znanja)
+        {
+            if (cz.Znanje + cz.Broj > maxZnanje?.Broj + maxZnanje?.Znanje) maxZnanje = cz;
+        }
+
+        return maxZnanje;
+    }
+
+    public bool RemoveZnanje(Guid clanId, Guid znanjeId)
+    {
+        Clan? c = table.Include(clan => clan.Znanja).FirstOrDefault(clan => clan.Id == clanId);
+        ClanZnanje? cz = c?.Znanja.FirstOrDefault(znanje => znanje.Id == znanjeId);
+        if (c is null || cz is null) return false;
+
+        c.Znanja.Remove(cz);
+        Save();
+
+        return true;
+    }
+
+    public PosebanProgram? CreateProgram(PosebanProgram? program)
+    {
+        if (program is null) return null;
+        ctx.PosebniProgrami.Add(program);
+        Save();
+
+        return program;
+    }
+
+    public PosebanProgram? AddProgram(Guid clanId, PosebanProgram? program)
+    {
+        Clan? c = table.Find(clanId);
+        if (c is null || program is null) return null;
+
+        program.Clanovi.Add(c);
+        if (!ctx.PosebniProgrami.Contains(program)) return null;
+        Save();
+
+        return program;
+    }
+
+    public bool RemoveProgram(Guid clanId, Guid programId)
+    {
+        Clan? c = table.Include(clan => clan.PosebniProgrami).FirstOrDefault(clan => clan.Id == clanId);
+        PosebanProgram? pp = c?.PosebniProgrami.FirstOrDefault(program => program.Id == programId);
+        if (c is null || pp is null) return false;
+
+        c.PosebniProgrami.Remove(pp);
+        Save();
+
+        return true;
+    }
+
+    public ClanFunkcija? CreateFunkcija(ClanFunkcija? funkcija)
+    {
+        throw new NotImplementedException();
+    }
+
+    public ClanFunkcija? AddFunkcija(Guid clanId, ClanFunkcija? funkcija)
+    {
+        throw new NotImplementedException();
+    }
+
+    public bool FunkcijaActiveStateChange(Guid clanId, Guid funkcijaId, bool state)
+    {
+        throw new NotImplementedException();
+    }
+
+    public ICollection<ClanFunkcija> GetFunkcije(Guid clanId)
+    {
+        throw new NotImplementedException();
+    }
+
+    public bool RemoveFunkcija(Guid clanId, Guid funkcijaId)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Akcija? AddAkcija(Guid clanId, Akcija? akcija)
+    {
+        throw new NotImplementedException();
+    }
+
+    public bool RemoveAkcija(Guid clanId, Akcija? akcija)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Tecaj? AddTecaj(Guid clanId, Tecaj? tecaj)
+    {
+        throw new NotImplementedException();
+    }
+
+    public bool RemoveTecaj(Guid clanId, Tecaj? tecaj)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Clanarina? AddClanarina(Guid clanId, Clanarina? clanarina)
+    {
+        throw new NotImplementedException();
+    }
+
+    public bool RemoveClanarina(Guid clanarinaId)
+    {
+        throw new NotImplementedException();
     }
 }

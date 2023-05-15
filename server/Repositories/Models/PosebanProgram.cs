@@ -3,8 +3,12 @@ using Repositories.Enums;
 
 namespace Repositories.Models;
 
-
-// Ovo su sva vestarstva i vestine koje neko moze da ima
+/// <summary>
+/// Ovo su sva vestarstva i vestine koje neko moze da ima
+/// <para>
+/// TipPrograma enum: { Vestina, Vestarstvo, Specijalnost }
+/// </para>
+/// </summary>
 public class PosebanProgram
 {
     public Guid Id { get; set; } = Guid.NewGuid();

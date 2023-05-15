@@ -4,7 +4,15 @@ using Repositories.Enums;
 
 namespace Repositories.Models;
 
-// Ovde su znanja poput let laste, drugi krin itd.
+/// <summary>
+/// Ovde su znanja poput let laste, drugi krin itd.
+/// <para>
+/// Znanje enum: { Nema, Let, Zvezda, Krin, Orao }
+/// </para>
+/// <para>
+/// Broj: let 1, zvezda 3, itd.
+/// </para>
+/// </summary>
 public class ClanZnanje
 {
     public Guid Id { get; set; } = Guid.NewGuid();

@@ -39,7 +39,7 @@ public class ClanService : IClanService
 
     public bool DeleteKazna(Guid clanId, Guid kaznaId)
     {
-        return clanRepo.DeleteKazna(clanId, kaznaId);
+        return clanRepo.DeleteKazna(kaznaId);
     }
 
     public ICollection<ClanShortObject> GetActive()
@@ -61,7 +61,7 @@ public class ClanService : IClanService
 
     public DisplayKazna? GetKaznaById(Guid clanId, Guid kaznaId)
     {
-        Kazna? k = clanRepo.GetKaznaById(clanId, kaznaId);
+        Kazna? k = clanRepo.GetKaznaById(kaznaId);
 
         return k is null ? null : new DisplayKazna(k);
     }

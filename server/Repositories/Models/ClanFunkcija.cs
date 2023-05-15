@@ -1,5 +1,6 @@
 namespace Repositories.Models;
 
+
 public class ClanFunkcija
 {
     public Guid Id { get; set; }

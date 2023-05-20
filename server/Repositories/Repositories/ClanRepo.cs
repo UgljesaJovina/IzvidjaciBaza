@@ -114,6 +114,11 @@ public class ClanRepository : Repository<Clan>, IClanRepo
         return true;
     }
 
+    public ClanZnanje? GetZnanje(Guid id) 
+    {
+        return ctx.ClanoviZnanja.Find(id);
+    }
+
     public ClanZnanje? CreateZnanje(ClanZnanje? znanje)
     {
         if (znanje is null) return null;
@@ -193,59 +198,124 @@ public class ClanRepository : Repository<Clan>, IClanRepo
 
         return true;
     }
-
-    public ClanFunkcija? CreateFunkcija(ClanFunkcija? funkcija)
+    
+    public OdredskaFunkcija? CreateFunkcija(OdredskaFunkcija? funkcija)
     {
-        throw new NotImplementedException();
+        if (funkcija is null) return null;
+        ctx.OdredskeFunkcije.Add(funkcija);
+
+        Save();
+        return funkcija;
     }
 
-    public ClanFunkcija? AddFunkcija(Guid clanId, ClanFunkcija? funkcija)
+    public ICollection<OdredskaFunkcija> GetOdredskeFunkcije()
     {
-        throw new NotImplementedException();
+        return ctx.OdredskeFunkcije.ToList();
     }
 
-    public bool FunkcijaActiveStateChange(Guid clanId, Guid funkcijaId, bool state)
+    public OdredskaFunkcija? GetOdredskaFunkcija(Guid id)
     {
-        throw new NotImplementedException();
+        OdredskaFunkcija? of = ctx.OdredskeFunkcije.Find(id);
+        return of;
     }
 
-    public ICollection<ClanFunkcija> GetFunkcije(Guid clanId)
+    public ClanFunkcija? AddFunkcija(Guid clanId, OdredskaFunkcija? funkcija)
     {
-        throw new NotImplementedException();
+        Clan? c = table.Find(clanId);
+        if (c is null || funkcija is null) return null;
+
+        ClanFunkcija cf = new() { TrenutnoAktivna = true, Clan = c, Funkcija = funkcija };
+        
+        Save();
+        return cf;
     }
 
-    public bool RemoveFunkcija(Guid clanId, Guid funkcijaId)
+    public bool FunkcijaActiveStateChange(Guid funkcijaId, bool state)
     {
-        throw new NotImplementedException();
+        ClanFunkcija? cf = ctx.FunkcijeClanova.Find(funkcijaId);
+        if (cf is null) return false;
+
+        cf.TrenutnoAktivna = state;
+        Save();
+        return true;
     }
 
-    public Akcija? AddAkcija(Guid clanId, Akcija? akcija)
+    public ICollection<ClanFunkcija>? GetFunkcije(Guid clanId)
     {
-        throw new NotImplementedException();
+        Clan? c = table.Include(clan => clan.Funkcije).FirstOrDefault(clan => clan.Id == clanId);
+        if (c is null) return null;
+
+        return c.Funkcije;
     }
 
-    public bool RemoveAkcija(Guid clanId, Akcija? akcija)
+    public Akcija? AddAkcija(Guid clanId, Guid akcijaId)
     {
-        throw new NotImplementedException();
+        Clan? c = table.Include(clan => clan.Akcije).FirstOrDefault(clan => clan.Id == clanId);
+        Akcija? a = ctx.Akcije.Include(akcija => akcija.Clanovi).FirstOrDefault(akcija => akcija.Id == akcijaId);
+
+        if (c is null || a is null) return null;
+
+        c.Akcije.Add(a);
+        Save();
+        return a;
     }
 
-    public Tecaj? AddTecaj(Guid clanId, Tecaj? tecaj)
+    public bool RemoveAkcija(Guid clanId, Guid akcijaId)
     {
-        throw new NotImplementedException();
+        Clan? c = table.Include(clan => clan.Akcije).FirstOrDefault(clan => clan.Id == clanId);
+        Akcija? a = ctx.Akcije.Include(akcija => akcija.Clanovi).FirstOrDefault(akcija => akcija.Id == akcijaId);
+
+        if (c is null || a is null) return false;
+
+        c.Akcije.Remove(a);
+        Save();
+        return true;
     }
 
-    public bool RemoveTecaj(Guid clanId, Tecaj? tecaj)
+    public Tecaj? AddTecaj(Guid clanId, Guid tecajId)
     {
-        throw new NotImplementedException();
+        Clan? c = table.Include(clan => clan.Tecajevi).FirstOrDefault(clan => clan.Id == clanId);
+        Tecaj? t = ctx.Tecajevi.Include(tecaj => tecaj.Clanovi).FirstOrDefault(tecaj => tecaj.Id == tecajId);
+
+        if (c is null || t is null) return null;
+
+        c.Tecajevi.Add(t);
+        Save();
+        return t;
+    }
+
+    public bool RemoveTecaj(Guid clanId, Guid tecajId)
+    {
+        Clan? c = table.Include(clan => clan.Tecajevi).FirstOrDefault(clan => clan.Id == clanId);
+        Tecaj? t = ctx.Tecajevi.Include(tecaj => tecaj.Clanovi).FirstOrDefault(tecaj => tecaj.Id == tecajId);
+
+        if (c is null || t is null) return false;
+
+        c.Tecajevi.Remove(t);
+        Save();
+        return true;
     }
 
     public Clanarina? AddClanarina(Guid clanId, Clanarina? clanarina)
     {
-        throw new NotImplementedException();
+        Clan? c = table.Include(clan => clan.PlaceneClanarine).FirstOrDefault(clan => clan.Id == clanId);
+        if (c is null || clanarina is null) return null;
+
+        ctx.Clanarine.Add(clanarina);
+        clanarina.Clan = c;
+        Save();
+
+        return clanarina;
     }
 
     public bool RemoveClanarina(Guid clanarinaId)
     {
-        throw new NotImplementedException();
+        Clanarina? c = ctx.Clanarine.Find(clanarinaId);
+        if (c is null) return false;
+
+        ctx.Clanarine.Remove(c);
+        Save();
+
+        return true;
     }
 }

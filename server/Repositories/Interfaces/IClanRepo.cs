@@ -21,6 +21,7 @@ public interface IClanRepo : IRepository<Clan>
 
     // ===================== ZNANJA =====================
 
+    ClanZnanje? GetZnanje(Guid id);
     ClanZnanje? CreateZnanje(ClanZnanje? znanje);
     ClanZnanje? AddZnanje(Guid clanId, ClanZnanje? znanje);
     ClanZnanje? GetMaxZnanje(Guid clanId);
@@ -32,23 +33,27 @@ public interface IClanRepo : IRepository<Clan>
     PosebanProgram? AddProgram(Guid clanId, PosebanProgram? program);
     bool RemoveProgram(Guid clanId, Guid programId);
 
-    // ===================== FUNKCIJE =====================
+    // ===================== ODREDSKE FUNKCIJE =====================
 
-    ClanFunkcija? CreateFunkcija(ClanFunkcija? funkcija);
-    ClanFunkcija? AddFunkcija(Guid clanId, ClanFunkcija? funkcija);
-    bool FunkcijaActiveStateChange(Guid clanId, Guid funkcijaId, bool state);
-    ICollection<ClanFunkcija> GetFunkcije(Guid clanId);
-    bool RemoveFunkcija(Guid clanId, Guid funkcijaId);
+    OdredskaFunkcija? CreateFunkcija(OdredskaFunkcija? funkcija);
+    ICollection<OdredskaFunkcija> GetOdredskeFunkcije();
+    OdredskaFunkcija? GetOdredskaFunkcija(Guid id);
+
+    // ===================== CLANSKE FUNKCIJE =====================
+
+    ClanFunkcija? AddFunkcija(Guid clanId, OdredskaFunkcija? funkcija);
+    bool FunkcijaActiveStateChange(Guid funkcijaId, bool state);
+    ICollection<ClanFunkcija>? GetFunkcije(Guid clanId);
 
     // ===================== AKCIJE =====================
 
-    Akcija? AddAkcija(Guid clanId, Akcija? akcija);
-    bool RemoveAkcija(Guid clanId, Akcija? akcija);
+    Akcija? AddAkcija(Guid clanId, Guid akcijaId);
+    bool RemoveAkcija(Guid clanId, Guid akcijaId);
 
     // ===================== TECAJEVI =====================
 
-    Tecaj? AddTecaj(Guid clanId, Tecaj? tecaj);
-    bool RemoveTecaj(Guid clanId, Tecaj? tecaj);
+    Tecaj? AddTecaj(Guid clanId, Guid tecajId);
+    bool RemoveTecaj(Guid clanId, Guid tecajId);
 
     // ===================== CLANARINE =====================
 

@@ -3,6 +3,10 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Repositories.Models;
 
+/// <summary>
+/// Polja: Datum (date), GodinaClanarine (int), Iznos (int) i Clan
+/// </summary>
+
 public class Clanarina
 {
     public Guid Id { get; set; }

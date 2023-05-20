@@ -1,6 +1,13 @@
 namespace Repositories.Models;
 
 
+/// <summary>
+/// Odredske funkcije vezane za clana
+/// <par>
+/// Blagajnik, nacelnik, cetovodja, itd.
+/// </par>
+/// </summary>
+
 public class ClanFunkcija
 {
     public Guid Id { get; set; }

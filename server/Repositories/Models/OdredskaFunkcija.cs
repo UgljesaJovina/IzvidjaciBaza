@@ -3,12 +3,9 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Repositories.Models;
 
-// blagajnik, nacelnik, vodnik, predvodnik itd.
-
-
-
-// UPDATEOVATI BAZU PODATAKA SA NOVIM IZMENAMA!!!!!!!!!!!!
-
+/// <summary>
+/// blagajnik, nacelnik, vodnik, predvodnik itd.
+/// </summary>
 
 public class OdredskaFunkcija
 {

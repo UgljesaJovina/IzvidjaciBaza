@@ -2,20 +2,20 @@ using Repositories.Models;
 
 namespace Services.DTOs;
 
-public class PohvalaShortObj
+public class PohvalaShortObject
 {
     public Guid Id { get; set; }
     public string Opis { get; set; }
 
-    public PohvalaShortObj(Guid id, string opis)
+    public PohvalaShortObject(Guid id, string opis)
     {
         Id = id;
         Opis = opis;
     }
 
-    public PohvalaShortObj(Pohvala pohvala) :this(pohvala.Id, pohvala.Opis){}
+    public PohvalaShortObject(Pohvala pohvala) :this(pohvala.Id, pohvala.Opis){}
 
-    public static ICollection<PohvalaShortObj> TransformList(ICollection<Pohvala> pohvale) {
-        return pohvale.Select(k => new PohvalaShortObj(k)).ToList();
+    public static ICollection<PohvalaShortObject> TransformList(ICollection<Pohvala> pohvale) {
+        return pohvale.Select(k => new PohvalaShortObject(k)).ToList();
     }
 }

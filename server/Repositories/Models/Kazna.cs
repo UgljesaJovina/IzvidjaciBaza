@@ -16,6 +16,12 @@ public class Kazna
 
     public Kazna(){}
 
+    public Kazna(Guid id, DateTime datumDobijanja, DateTime? datumIsteka, string? dodeljivacKazne, string opis)
+        : this(datumDobijanja, datumIsteka, dodeljivacKazne, opis)
+    {
+        Id = id;
+    }
+
     public Kazna(DateTime datumDobijanja, DateTime? datumIsteka, string? dodeljivacKazne, string opis)
     {
         DatumDobijanja = datumDobijanja;

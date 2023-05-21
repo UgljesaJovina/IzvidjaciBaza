@@ -12,13 +12,10 @@ public class ClanRepository : Repository<Clan>, IClanRepo
 
     public ICollection<Kazna>? GetKazne(Guid clanId)
     {
-        Clan? c = table.Find(clanId);
+        Clan? c = table.Include(clan => clan.Kazne).FirstOrDefault(clan => clan.Id == clanId);
         if (c is null) return null;
 
-        table.Entry(c).Collection(c => c.Kazne).Load();
-
-        ICollection<Kazna> kazne = c.Kazne;
-        return kazne;
+        return c.Kazne;
     }
 
     public ICollection<Clan> GetActive()
@@ -29,8 +26,6 @@ public class ClanRepository : Repository<Clan>, IClanRepo
     public override Clan? GetById(Guid id)
     {
         return table
-            .Include(c => c.Akcije)
-            .Include(c => c.Tecajevi)
             .Include(c => c.Akcije)
             .Include(c => c.Tecajevi)
             .Include(c => c.Funkcije)
@@ -80,6 +75,13 @@ public class ClanRepository : Repository<Clan>, IClanRepo
         Save();
 
         return true;
+    }
+
+    public ICollection<Pohvala>? GetPohvale(Guid id) {
+        Clan? c = table.Include(clan => clan.Pohvale).FirstOrDefault(clan => clan.Id == id);
+        if (c is null) return null;
+
+        return c.Pohvale;
     }
 
     public Pohvala? CreatePohvala(Guid clanId, Pohvala? pohvala)

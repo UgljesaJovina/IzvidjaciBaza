@@ -46,13 +46,13 @@ public class ClanController : ControllerBase
 
     [HttpGet("GetKazne/{id}")]
     public ActionResult<ICollection<KaznaShortObject>> GetKazne(Guid id) {
-        ICollection<KaznaShortObject>? kazne = clanService.GetKazne(id)?.Select(k => new KaznaShortObject(k.GetKazna())).ToList();
+        ICollection<KaznaShortObject>? kazne = clanService.GetKazne(id)?.ToList();
         return kazne is null ? NotFound() : Ok(kazne);
     }
 
-    [HttpGet("GetKazna/{clanId}/{kaznaId}")]
-    public ActionResult<DisplayKazna> GetKazna([FromRoute]Guid clanId, [FromRoute]Guid kaznaId) {
-        DisplayKazna? kazna = clanService.GetKaznaById(clanId, kaznaId);
+    [HttpGet("GetKazna/{kaznaId}")]
+    public ActionResult<DisplayKazna> GetKazna(Guid kaznaId) {
+        DisplayKazna? kazna = clanService.GetKaznaById(kaznaId);
         if (kazna is null) return NotFound();
         return Ok(kazna);
     }

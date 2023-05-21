@@ -19,7 +19,7 @@ public class DisplayClan
     public virtual ICollection<TecajShortObject> Tecajevi { get; set; }
     public virtual ICollection<FuncShortObject> Funkcije { get; set; }
     public virtual ICollection<ZnanjeShortObject> Znanja { get; set; }
-    public virtual ICollection<PohvalaShortObj> Pohvale { get; set; }
+    public virtual ICollection<PohvalaShortObject> Pohvale { get; set; }
     public virtual ICollection<KaznaShortObject> Kazne { get; set; }
     public virtual ICollection<PosProgShortObject> PosebniProgrami { get; set; }
     public virtual ICollection<ClanarinaShortObject> PlaceneClanarine { get; set; }
@@ -40,7 +40,7 @@ public class DisplayClan
         Tecajevi = TecajShortObject.TransformList(clan.Tecajevi);
         Funkcije = FuncShortObject.TransformList(clan.Funkcije);
         Znanja = ZnanjeShortObject.TransformList(clan.Znanja);
-        Pohvale = PohvalaShortObj.TransformList(clan.Pohvale);
+        Pohvale = PohvalaShortObject.TransformList(clan.Pohvale);
         Kazne = KaznaShortObject.TransformList(clan.Kazne);
         PosebniProgrami = PosProgShortObject.TransformList(clan.PosebniProgrami);
         PlaceneClanarine = ClanarinaShortObject.TransfromList(clan.PlaceneClanarine);

@@ -43,7 +43,7 @@ export default function ClanObj() {
     }
 
     function openKaznaModal(kaznaId) {
-        fetch(`https://localhost:7298/Clan/GetKazna/${clanId}/${kaznaId}`)
+        fetch(`https://localhost:7298/Clan/GetKazna/${kaznaId}`)
         .then(res => {
             if (res.status !== 200){
                 alert("Kazna nije pronadjena");

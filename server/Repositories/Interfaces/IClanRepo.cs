@@ -4,17 +4,18 @@ namespace Repositories.Interfaces;
 
 public interface IClanRepo : IRepository<Clan>
 {
-    ICollection<Kazna>? GetKazne(Guid clanId);
     ICollection<Clan> GetActive();
 
     // ===================== KAZNE =====================
 
+    ICollection<Kazna>? GetKazne(Guid clanId);
     Kazna? CreateKazna(Guid clanId, Kazna? kazna);
     Kazna? GetKaznaById(Guid kaznaId);
     bool DeleteKazna(Guid kaznaId);
 
     // ===================== POHVALE =====================
 
+    ICollection<Pohvala>? GetPohvale(Guid clanId);
     Pohvala? CreatePohvala(Guid clanId, Pohvala? pohvala);
     Pohvala? GetPohvalaById(Guid pohvalaId);
     bool DeletePohvala(Guid pohvalaId);

@@ -12,8 +12,9 @@ public interface IClanService
     ClanShortObject? Create(ClanCreation? clanCreation);
     DisplayClan? Update(Guid id, DisplayClan? displayClan);
     bool Delete(Guid id);
-    ICollection<DisplayKazna>? GetKazne(Guid id);
-    DisplayKazna? GetKaznaById(Guid clanId, Guid kaznaId);
+    ICollection<KaznaShortObject>? GetKazne(Guid id);
+    DisplayKazna? GetKaznaById(Guid kaznaId);
     KaznaShortObject? CreateKazna(Guid clanId, KaznaCreation? kaznaCreation);
     bool DeleteKazna(Guid clanId, Guid kaznaId);
+    ICollection<PohvalaShortObject>? GetPohvale(Guid id);
 }

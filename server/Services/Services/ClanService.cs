@@ -59,16 +59,16 @@ public class ClanService : IClanService
         return c is null ? null : new DisplayClan(c);
     }
 
-    public DisplayKazna? GetKaznaById(Guid clanId, Guid kaznaId)
+    public DisplayKazna? GetKaznaById(Guid kaznaId)
     {
         Kazna? k = clanRepo.GetKaznaById(kaznaId);
 
         return k is null ? null : new DisplayKazna(k);
     }
 
-    public ICollection<DisplayKazna>? GetKazne(Guid id)
+    public ICollection<KaznaShortObject>? GetKazne(Guid id)
     {
-        return clanRepo.GetKazne(id)?.Select(k => new DisplayKazna(k)).ToList();
+        return clanRepo.GetKazne(id)?.Select(k => new KaznaShortObject(k)).ToList();
     }
 
     public DisplayClan? Update(Guid id, DisplayClan? displayClan)
@@ -78,5 +78,10 @@ public class ClanService : IClanService
 
         displayClan.UpdateClan(c);
         return displayClan;
+    }
+
+    public ICollection<PohvalaShortObject>? GetPohvale(Guid id)
+    {
+        return clanRepo.GetPohvale(id)?.Select(p => new PohvalaShortObject(p)).ToList();
     }
 }

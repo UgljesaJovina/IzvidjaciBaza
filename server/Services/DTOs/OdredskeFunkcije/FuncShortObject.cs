@@ -15,7 +15,7 @@ public class FuncShortObject
         Aktivna = aktivna;
     }
 
-    public FuncShortObject(ClanFunkcija funkcija) :this(funkcija.Funkcija.Id, funkcija.Funkcija.Naziv, funkcija.TrenutnoAktivna){}
+    public FuncShortObject(ClanFunkcija funkcija) :this(funkcija.Id, funkcija.Funkcija.Naziv, funkcija.TrenutnoAktivna){}
 
     public static ICollection<FuncShortObject> TransformList(ICollection<ClanFunkcija> funckije) {
         return funckije.Select(f => new FuncShortObject(f)).ToList();

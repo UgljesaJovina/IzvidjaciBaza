@@ -15,5 +15,8 @@ public class Tecaj
     [StringLength(40)]
     public string? MestoOdrzavanja { get; set; }
 
+    public DateTime DatumPocetka { get; set; }
+    public DateTime DatumKraja { get; set; }
+
     public virtual ICollection<Clan> Clanovi { get; set; } = new List<Clan>();
 }

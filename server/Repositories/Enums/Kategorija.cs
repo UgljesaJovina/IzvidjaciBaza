@@ -1,5 +1,8 @@
 namespace Repositories.Enums;
 
+/// <summary>
+/// poletarci, pcelice itd.
+/// </summary>
 public enum Kategorija
 {
     Poletarci,

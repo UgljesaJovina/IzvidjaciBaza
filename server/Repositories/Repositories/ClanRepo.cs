@@ -28,7 +28,7 @@ public class ClanRepository : Repository<Clan>, IClanRepo
 
     public override Clan? GetById(Guid id)
     {
-        Clan? c = table
+        return table
             .Include(c => c.Akcije)
             .Include(c => c.Tecajevi)
             .Include(c => c.Akcije)
@@ -40,10 +40,6 @@ public class ClanRepository : Repository<Clan>, IClanRepo
             .Include(c => c.PosebniProgrami)
             .Include(c => c.PlaceneClanarine)
             .FirstOrDefault(c => c.Id == id);
-
-        if (c is null) return null;
-
-        return c;
     }
 
     public override bool Delete(Guid id)

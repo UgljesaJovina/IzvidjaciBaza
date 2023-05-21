@@ -2,7 +2,9 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Repositories.Models;
 
-// zimovanje, tabor, smotra itd.
+/// <summary>
+/// zimovanje, tabor, smotra itd.
+/// </summary>
 public class OblikAkcije
 {
     public Guid Id { get; set; }

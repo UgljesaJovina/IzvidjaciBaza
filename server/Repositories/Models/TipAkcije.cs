@@ -3,7 +3,9 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Repositories.Models;
 
-// odredska, nacionalna, medjunarodna itd.
+/// <summary>
+/// odredska, nacionalna, medjunarodna itd.
+/// </summary>
 public class TipAkcije
 {
     public Guid Id { get; set; } = Guid.NewGuid();

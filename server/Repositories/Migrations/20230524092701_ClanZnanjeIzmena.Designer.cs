@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Repositories.DAL;
 
@@ -11,9 +12,11 @@ using Repositories.DAL;
 namespace Repositories.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20230524092701_ClanZnanjeIzmena")]
+    partial class ClanZnanjeIzmena
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -34,7 +37,7 @@ namespace Repositories.Migrations
 
                     b.HasIndex("ClanoviId");
 
-                    b.ToTable("AkcijaClan", (string)null);
+                    b.ToTable("AkcijaClan");
                 });
 
             modelBuilder.Entity("ClanPosebanProgram", b =>
@@ -49,7 +52,7 @@ namespace Repositories.Migrations
 
                     b.HasIndex("PosebniProgramiId");
 
-                    b.ToTable("ClanPosebanProgram", (string)null);
+                    b.ToTable("ClanPosebanProgram");
                 });
 
             modelBuilder.Entity("ClanTecaj", b =>
@@ -64,7 +67,7 @@ namespace Repositories.Migrations
 
                     b.HasIndex("TecajeviId");
 
-                    b.ToTable("ClanTecaj", (string)null);
+                    b.ToTable("ClanTecaj");
                 });
 
             modelBuilder.Entity("Repositories.Models.Akcija", b =>
@@ -101,7 +104,7 @@ namespace Repositories.Migrations
 
                     b.HasIndex("TipId");
 
-                    b.ToTable("Akcije", (string)null);
+                    b.ToTable("Akcije");
                 });
 
             modelBuilder.Entity("Repositories.Models.Clan", b =>
@@ -190,7 +193,7 @@ namespace Repositories.Migrations
 
                     b.HasIndex("VodId");
 
-                    b.ToTable("Clanovi", (string)null);
+                    b.ToTable("Clanovi");
                 });
 
             modelBuilder.Entity("Repositories.Models.ClanFunkcija", b =>
@@ -214,7 +217,7 @@ namespace Repositories.Migrations
 
                     b.HasIndex("FunkcijaId");
 
-                    b.ToTable("FunkcijeClanova", (string)null);
+                    b.ToTable("FunkcijeClanova");
                 });
 
             modelBuilder.Entity("Repositories.Models.ClanZnanje", b =>
@@ -239,7 +242,7 @@ namespace Repositories.Migrations
 
                     b.HasIndex("ClanId");
 
-                    b.ToTable("ClanoviZnanja", (string)null);
+                    b.ToTable("ClanoviZnanja");
                 });
 
             modelBuilder.Entity("Repositories.Models.Clanarina", b =>
@@ -264,7 +267,7 @@ namespace Repositories.Migrations
 
                     b.HasIndex("ClanId");
 
-                    b.ToTable("Clanarine", (string)null);
+                    b.ToTable("Clanarine");
                 });
 
             modelBuilder.Entity("Repositories.Models.Kazna", b =>
@@ -293,7 +296,7 @@ namespace Repositories.Migrations
 
                     b.HasIndex("ClanId");
 
-                    b.ToTable("Kazne", (string)null);
+                    b.ToTable("Kazne");
                 });
 
             modelBuilder.Entity("Repositories.Models.OblikAkcije", b =>
@@ -309,7 +312,7 @@ namespace Repositories.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("ObliciAkcija", (string)null);
+                    b.ToTable("ObliciAkcija");
                 });
 
             modelBuilder.Entity("Repositories.Models.OdredskaFunkcija", b =>
@@ -325,7 +328,7 @@ namespace Repositories.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("OdredskeFunkcije", (string)null);
+                    b.ToTable("OdredskeFunkcije");
                 });
 
             modelBuilder.Entity("Repositories.Models.Pohvala", b =>
@@ -351,7 +354,7 @@ namespace Repositories.Migrations
 
                     b.HasIndex("ClanId");
 
-                    b.ToTable("Pohvale", (string)null);
+                    b.ToTable("Pohvale");
                 });
 
             modelBuilder.Entity("Repositories.Models.PosebanProgram", b =>
@@ -370,7 +373,7 @@ namespace Repositories.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("PosebniProgrami", (string)null);
+                    b.ToTable("PosebniProgrami");
                 });
 
             modelBuilder.Entity("Repositories.Models.Tecaj", b =>
@@ -399,7 +402,7 @@ namespace Repositories.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Tecajevi", (string)null);
+                    b.ToTable("Tecajevi");
                 });
 
             modelBuilder.Entity("Repositories.Models.TipAkcije", b =>
@@ -415,7 +418,7 @@ namespace Repositories.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("TipoviAkcija", (string)null);
+                    b.ToTable("TipoviAkcija");
                 });
 
             modelBuilder.Entity("Repositories.Models.Vod", b =>
@@ -434,7 +437,7 @@ namespace Repositories.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Vodovi", (string)null);
+                    b.ToTable("Vodovi");
                 });
 
             modelBuilder.Entity("AkcijaClan", b =>

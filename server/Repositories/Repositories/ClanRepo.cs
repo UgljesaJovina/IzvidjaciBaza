@@ -117,21 +117,21 @@ public class ClanRepository : Repository<Clan>, IClanRepo
         return ctx.ClanoviZnanja.Find(id);
     }
 
-    public ClanZnanje? CreateZnanje(ClanZnanje? znanje)
-    {
-        if (znanje is null) return null;
-        ctx.ClanoviZnanja.Add(znanje);
-        Save();
+    // public ClanZnanje? CreateZnanje(ClanZnanje? znanje)
+    // {
+    //     if (znanje is null) return null;
+    //     ctx.ClanoviZnanja.Add(znanje);
+    //     Save();
 
-        return znanje;
-    }
+    //     return znanje;
+    // }
 
     public ClanZnanje? AddZnanje(Guid clanId, ClanZnanje? znanje)
     {
         Clan? c = table.Find(clanId);
         if (c is null || znanje is null) return null;
 
-        znanje.Clanovi.Add(c);
+        c.Znanja.Add(znanje);
         if (!ctx.ClanoviZnanja.Contains(znanje)) return null;
         Save();
 
@@ -140,16 +140,28 @@ public class ClanRepository : Repository<Clan>, IClanRepo
 
     public ClanZnanje? GetMaxZnanje(Guid clanId)
     {
-        Clan? c = table.Include(clan => clan.Znanja).FirstOrDefault(clan => clan.Id == clanId);
-        if (c is null) return null;
+        Clan? c = table.Include(clan => clan.Znanja)
+            .FirstOrDefault(clan => clan.Id == clanId);
+        if (c is null || c.Znanja.Count < 1) return null;
 
-        ClanZnanje? maxZnanje = null;
+        ClanZnanje maxZnanje = c.Znanja.First();
         foreach (var cz in c.Znanja)
         {
-            if (cz.Znanje + cz.Broj > maxZnanje?.Broj + maxZnanje?.Znanje) maxZnanje = cz;
+            if (cz.Znanje + cz.Broj > maxZnanje.Broj + maxZnanje.Znanje) maxZnanje = cz;
         }
 
         return maxZnanje;
+    }
+
+    public ICollection<Clan>? GetSameZnanje(ClanZnanje? znanje) {
+        if (znanje is null) return null;
+
+        Func<ClanZnanje, bool> func = (ClanZnanje z) => 
+            z.Znanje == znanje.Znanje && z.Broj == znanje.Broj;
+
+        return table.Include(c => c.Znanja)
+            .Where(c => c.Znanja.FirstOrDefault(func) != null) //ovde ne moze is???
+            .ToList();
     }
 
     public bool RemoveZnanje(Guid clanId, Guid znanjeId)

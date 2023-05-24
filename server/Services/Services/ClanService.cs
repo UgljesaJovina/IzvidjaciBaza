@@ -37,7 +37,7 @@ public class ClanService : IClanService
         return clanRepo.Delete(id);
     }
 
-    public bool DeleteKazna(Guid clanId, Guid kaznaId)
+    public bool DeleteKazna(Guid kaznaId)
     {
         return clanRepo.DeleteKazna(kaznaId);
     }

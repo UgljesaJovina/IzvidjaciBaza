@@ -23,9 +23,10 @@ public interface IClanRepo : IRepository<Clan>
     // ===================== ZNANJA =====================
 
     ClanZnanje? GetZnanje(Guid id);
-    ClanZnanje? CreateZnanje(ClanZnanje? znanje);
+    // ClanZnanje? CreateZnanje(ClanZnanje? znanje);
     ClanZnanje? AddZnanje(Guid clanId, ClanZnanje? znanje);
     ClanZnanje? GetMaxZnanje(Guid clanId);
+    ICollection<Clan>? GetSameZnanje(ClanZnanje? znanje);
     bool RemoveZnanje(Guid clanId, Guid znanjeId);
 
     // ===================== POSEBAN PROGRAM =====================

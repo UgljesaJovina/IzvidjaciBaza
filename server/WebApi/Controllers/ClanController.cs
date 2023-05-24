@@ -64,9 +64,9 @@ public class ClanController : ControllerBase
         return Ok(retKazna);
     }
 
-    [HttpDelete("DeleteKazna/{clanId}/{kaznaId}")]
-    public ActionResult DeleteKazna(Guid clanId, Guid kaznaId) {
-        bool b = clanService.DeleteKazna(clanId, kaznaId);
+    [HttpDelete("DeleteKazna/{kaznaId}")]
+    public ActionResult DeleteKazna(Guid kaznaId) {
+        bool b = clanService.DeleteKazna(kaznaId);
         return b ? Ok() : NotFound();
     }
 }

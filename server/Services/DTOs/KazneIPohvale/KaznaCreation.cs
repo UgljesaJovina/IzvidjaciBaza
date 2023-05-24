@@ -13,10 +13,10 @@ public class KaznaCreation
         return new Kazna(DatumDobijanja, DatumIsteka, DodeljivacKazne, Opis);
     }
 
-    public void Update(Kazna k) {
-        k.DatumDobijanja = DatumDobijanja;
-        k.DatumIsteka = DatumIsteka;
-        k.DodeljivacKazne = DodeljivacKazne;
-        k.Opis = Opis;
-    }
+    // public void Update(Kazna k) {
+    //     k.DatumDobijanja = DatumDobijanja;
+    //     k.DatumIsteka = DatumIsteka;
+    //     k.DodeljivacKazne = DodeljivacKazne;
+    //     k.Opis = Opis;
+    // }
 }

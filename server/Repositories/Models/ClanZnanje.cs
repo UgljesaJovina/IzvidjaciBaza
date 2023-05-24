@@ -1,5 +1,4 @@
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 using Repositories.Enums;
 
 namespace Repositories.Models;
@@ -20,6 +19,12 @@ public class ClanZnanje
     public Znanje Znanje { get; set; }
     [Required]
     public int Broj { get; set; }
-    public DateTime? DatumDobijanja { get; set; }
-    public virtual ICollection<Clan> Clanovi { get; set; } = new List<Clan>();
+    public DateTime DatumDobijanja { get; set; }
+
+    public ClanZnanje(Znanje znanje, int broj, DateTime datumDobijanja)
+    {
+        Znanje = znanje;
+        Broj = broj;
+        DatumDobijanja = datumDobijanja;
+    }
 }

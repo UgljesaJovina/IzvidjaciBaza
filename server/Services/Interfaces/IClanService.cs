@@ -13,21 +13,31 @@ public interface IClanService
     DisplayClan? Update(Guid id, DisplayClan? displayClan);
     bool Delete(Guid id);
 
-    // ================== KAZNE ==================
+    // ===================== KAZNE =====================
 
     ICollection<KaznaShortObject>? GetKazne(Guid id);
     DisplayKazna? GetKaznaById(Guid kaznaId);
     KaznaShortObject? CreateKazna(Guid clanId, KaznaCreation? kaznaCreation);
     bool DeleteKazna(Guid kaznaId);
 
-    // ================== POHVALE ==================
+    // ===================== POHVALE =====================
 
     ICollection<PohvalaShortObject>? GetPohvale(Guid id);
     DisplayPohvala? GetPohvalaById(Guid pohvalaId);
     PohvalaShortObject? CreatePohvala(Guid clanId, PohvalaCreation? pohvalaCreation);
     bool DeletePohvala(Guid pohvalaId);
 
-    // ================== ZNANJA ==================
+    // ===================== ZNANJA =====================
 
-    
+    ZnanjeShortObject? AddZnanje(Guid clanId, ZnanjeCreation? znanje);
+    ZnanjeShortObject? GetMaxZnanje(Guid clanId);
+    ICollection<ClanShortObject> GetSameZnanje(ZnanjeCreation? znanje);
+    bool RemoveZnanje(Guid clanId, Guid znanjeId);
+
+    // ===================== POSEBAN PROGRAM =====================
+
+    DisplayPosProg? AddProgram(Guid clanId, PosProgCreation? program);
+    bool RemoveProgram(Guid clanId, Guid? program);
+
+    // ===================== ODREDSKE FUNKCIJE =====================
 }

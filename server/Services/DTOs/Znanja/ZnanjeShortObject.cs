@@ -8,18 +8,16 @@ public class ZnanjeShortObject
     public Guid Id { get; set; } = Guid.NewGuid();
     public string Znanje { get; set; }
     public int Broj { get; set; }
-    public DateTime? DatumDobijanja { get; set; }
 
-    public ZnanjeShortObject(Guid id, string znanje, int broj, DateTime? datumDobijanja)
+    public ZnanjeShortObject(Guid id, Znanje znanje, int broj)
     {
         Id = id;
-        Znanje = znanje;
+        Znanje = znanje.ToString();
         Broj = broj;
-        DatumDobijanja = datumDobijanja;
     }
 
     public ZnanjeShortObject(ClanZnanje clanZnanje)
-        :this(clanZnanje.Id, clanZnanje.Znanje.ToString(), clanZnanje.Broj, clanZnanje.DatumDobijanja) {}
+        :this(clanZnanje.Id, clanZnanje.Znanje, clanZnanje.Broj) {}
 
     public static ICollection<ZnanjeShortObject> TransformList(ICollection<ClanZnanje> znanja) {
         return znanja.Select(z => new ZnanjeShortObject(z)).ToList();

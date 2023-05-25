@@ -21,7 +21,7 @@ public class DisplayClan
     public virtual ICollection<ZnanjeShortObject> Znanja { get; set; }
     public virtual ICollection<PohvalaShortObject> Pohvale { get; set; }
     public virtual ICollection<KaznaShortObject> Kazne { get; set; }
-    public virtual ICollection<PosProgShortObject> PosebniProgrami { get; set; }
+    public virtual ICollection<DisplayPosProg> PosebniProgrami { get; set; }
     public virtual ICollection<ClanarinaShortObject> PlaceneClanarine { get; set; }
 
     public DisplayClan(Clan clan)
@@ -42,7 +42,7 @@ public class DisplayClan
         Znanja = ZnanjeShortObject.TransformList(clan.Znanja);
         Pohvale = PohvalaShortObject.TransformList(clan.Pohvale);
         Kazne = KaznaShortObject.TransformList(clan.Kazne);
-        PosebniProgrami = PosProgShortObject.TransformList(clan.PosebniProgrami);
+        PosebniProgrami = DisplayPosProg.TransformList(clan.PosebniProgrami);
         PlaceneClanarine = ClanarinaShortObject.TransfromList(clan.PlaceneClanarine);
     }
 

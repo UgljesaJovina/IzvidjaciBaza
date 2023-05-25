@@ -6,7 +6,7 @@ namespace Repositories.Models;
 /// <summary>
 /// Ovde su znanja poput let laste, drugi krin itd.
 /// <para>
-/// Znanje enum: { Nema, Let, Zvezda, Krin, Orao }
+/// Znanje enum: { Let, Zvezda, Krin, Orao }
 /// </para>
 /// <para>
 /// Broj: let 1, zvezda 3, itd.

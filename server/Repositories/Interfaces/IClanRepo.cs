@@ -22,7 +22,7 @@ public interface IClanRepo : IRepository<Clan>
 
     // ===================== ZNANJA =====================
 
-    ClanZnanje? GetZnanje(Guid id);
+    //ClanZnanje? GetZnanje(Guid id);
     // ClanZnanje? CreateZnanje(ClanZnanje? znanje);
     ClanZnanje? AddZnanje(Guid clanId, ClanZnanje? znanje);
     ClanZnanje? GetMaxZnanje(Guid clanId);
@@ -31,9 +31,9 @@ public interface IClanRepo : IRepository<Clan>
 
     // ===================== POSEBAN PROGRAM =====================
 
-    PosebanProgram? CreateProgram(PosebanProgram? program);
+    // PosebanProgram? CreateProgram(PosebanProgram? program);
     PosebanProgram? AddProgram(Guid clanId, PosebanProgram? program);
-    bool RemoveProgram(Guid clanId, Guid programId);
+    bool RemoveProgram(Guid programId);
 
     // ===================== ODREDSKE FUNKCIJE =====================
 

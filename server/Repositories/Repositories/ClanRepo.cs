@@ -112,10 +112,10 @@ public class ClanRepository : Repository<Clan>, IClanRepo
         return true;
     }
 
-    public ClanZnanje? GetZnanje(Guid id) 
-    {
-        return ctx.ClanoviZnanja.Find(id);
-    }
+    // public ClanZnanje? GetZnanje(Guid id) 
+    // {
+    //     return ctx.ClanoviZnanja.Find(id);
+    // }
 
     // public ClanZnanje? CreateZnanje(ClanZnanje? znanje)
     // {
@@ -156,7 +156,7 @@ public class ClanRepository : Repository<Clan>, IClanRepo
     public ICollection<Clan>? GetSameZnanje(ClanZnanje? znanje) {
         if (znanje is null) return null;
 
-        Func<ClanZnanje, bool> func = (ClanZnanje z) => 
+        var func = (ClanZnanje z) => 
             z.Znanje == znanje.Znanje && z.Broj == znanje.Broj;
 
         return table.Include(c => c.Znanja)
@@ -176,34 +176,25 @@ public class ClanRepository : Repository<Clan>, IClanRepo
         return true;
     }
 
-    public PosebanProgram? CreateProgram(PosebanProgram? program)
-    {
-        if (program is null) return null;
-        ctx.PosebniProgrami.Add(program);
-        Save();
-
-        return program;
-    }
-
     public PosebanProgram? AddProgram(Guid clanId, PosebanProgram? program)
     {
         Clan? c = table.Find(clanId);
         if (c is null || program is null) return null;
 
-        program.Clanovi.Add(c);
-        if (!ctx.PosebniProgrami.Contains(program)) return null;
+        program.Clan = c;
+        ctx.PosebniProgrami.Add(program);
+        
         Save();
 
         return program;
     }
 
-    public bool RemoveProgram(Guid clanId, Guid programId)
+    public bool RemoveProgram(Guid programId)
     {
-        Clan? c = table.Include(clan => clan.PosebniProgrami).FirstOrDefault(clan => clan.Id == clanId);
-        PosebanProgram? pp = c?.PosebniProgrami.FirstOrDefault(program => program.Id == programId);
-        if (c is null || pp is null) return false;
+        PosebanProgram? pp = ctx.PosebniProgrami.Find(programId);
+        if (pp is null) return false;
 
-        c.PosebniProgrami.Remove(pp);
+        ctx.Entry(pp).State = EntityState.Deleted;
         Save();
 
         return true;

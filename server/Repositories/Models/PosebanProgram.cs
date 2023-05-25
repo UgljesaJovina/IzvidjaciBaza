@@ -19,5 +19,17 @@ public class PosebanProgram
 
     [Required]
     public TipPrograma Tip { get; set; }
-    public virtual ICollection<Clan> Clanovi { get; set; } = new List<Clan>();
+
+    [Required]
+    public DateTime DatumDobijanja { get; set; }
+    public Clan Clan { get; set; }
+    
+    public PosebanProgram() {}
+
+    public PosebanProgram(string naziv, TipPrograma tip, DateTime datumDobijanja)
+    {
+        Naziv = naziv;
+        Tip = tip;
+        DatumDobijanja = datumDobijanja;
+    }
 }

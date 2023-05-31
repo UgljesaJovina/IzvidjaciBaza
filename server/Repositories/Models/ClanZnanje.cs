@@ -27,4 +27,18 @@ public class ClanZnanje
         Broj = broj;
         DatumDobijanja = datumDobijanja;
     }
+
+    public static bool operator == (ClanZnanje cz1, ClanZnanje cz2) {
+        if (cz1 is null && cz2 is null) return true;
+        else if (cz1 is null || cz2 is null) return false;
+        
+        return cz1.Znanje == cz2.Znanje && cz1.Broj == cz2.Broj;
+    }
+
+    public static bool operator != (ClanZnanje? cz1, ClanZnanje? cz2) {
+        if (cz1 is null && cz2 is null) return false;
+        else if (cz1 is null || cz2 is null) return true;
+
+        return cz1.Znanje != cz2.Znanje || cz1.Broj != cz2.Broj;
+    }
 }

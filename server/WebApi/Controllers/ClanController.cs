@@ -26,8 +26,8 @@ public class ClanController : ControllerBase
     }
 
     [HttpPost("CreateClan")]
-    public ActionResult<ClanShortObject> CreateClan(ClanCreation? clanCreation){
-        ClanShortObject? c = clanService.Create(clanCreation);
+    public ActionResult<ClanListObject> CreateClan(ClanCreation? clanCreation){
+        ClanListObject? c = clanService.Create(clanCreation);
         if (c is null) return BadRequest();
         return Ok(c);
     }

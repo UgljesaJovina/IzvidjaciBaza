@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Repositories.DAL;
 
@@ -11,9 +12,11 @@ using Repositories.DAL;
 namespace Repositories.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20230530153537_PromenaUProgramu")]
+    partial class PromenaUProgramu
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -184,17 +187,14 @@ namespace Repositories.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<bool>("Aktivna")
-                        .HasColumnType("bit");
-
                     b.Property<Guid>("ClanId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateTime>("DatumDobijanja")
-                        .HasColumnType("datetime2");
-
                     b.Property<Guid>("FunkcijaId")
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<bool>("TrenutnoAktivna")
+                        .HasColumnType("bit");
 
                     b.HasKey("Id");
 
@@ -531,7 +531,7 @@ namespace Repositories.Migrations
                         .IsRequired();
 
                     b.HasOne("Repositories.Models.PosebanProgram", "Program")
-                        .WithMany("ClanskiProgrami")
+                        .WithMany()
                         .HasForeignKey("ProgramId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -604,11 +604,6 @@ namespace Repositories.Migrations
             modelBuilder.Entity("Repositories.Models.OdredskaFunkcija", b =>
                 {
                     b.Navigation("ClanskeFunkcije");
-                });
-
-            modelBuilder.Entity("Repositories.Models.PosebanProgram", b =>
-                {
-                    b.Navigation("ClanskiProgrami");
                 });
 
             modelBuilder.Entity("Repositories.Models.TipAkcije", b =>

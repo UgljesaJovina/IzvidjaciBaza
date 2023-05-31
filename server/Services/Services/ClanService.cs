@@ -12,14 +12,14 @@ public class ClanService : IClanService
 
     public ClanService (IClanRepo _clanRepo) { clanRepo = _clanRepo; }
 
-    public ClanShortObject? Create(ClanCreation? clanCreation)
+    public ClanListObject? Create(ClanCreation? clanCreation)
     {
         if (clanCreation is null) return null;
         
         Clan c = clanCreation.GetClan();
         clanRepo.Create(c);
 
-        return new ClanShortObject(c);
+        return new ClanListObject(c);
     }
 
     public KaznaShortObject? CreateKazna(Guid clanId, KaznaCreation? kaznaCreation)
@@ -42,14 +42,14 @@ public class ClanService : IClanService
         return clanRepo.DeleteKazna(kaznaId);
     }
 
-    public ICollection<ClanShortObject> GetActive()
+    public ICollection<ClanListObject> GetActive()
     {
-        return clanRepo.GetActive().Select(c => new ClanShortObject(c)).ToList();
+        return clanRepo.GetActive().Select(c => new ClanListObject(c)).ToList();
     }
 
-    public ICollection<ClanShortObject> GetAll()
+    public ICollection<ClanListObject> GetAll()
     {
-        return clanRepo.GetAll().Select(c => new ClanShortObject(c)).ToList();
+        return clanRepo.GetAll().Select(c => new ClanListObject(c)).ToList();
     }
 
     public DisplayClan? GetById(Guid id)
@@ -83,5 +83,100 @@ public class ClanService : IClanService
     public ICollection<PohvalaShortObject>? GetPohvale(Guid id)
     {
         return clanRepo.GetPohvale(id)?.Select(p => new PohvalaShortObject(p)).ToList();
+    }
+
+    public DisplayPohvala? GetPohvalaById(Guid pohvalaId)
+    {
+        throw new NotImplementedException();
+    }
+
+    public PohvalaShortObject? CreatePohvala(Guid clanId, PohvalaCreation? pohvalaCreation)
+    {
+        throw new NotImplementedException();
+    }
+
+    public bool DeletePohvala(Guid pohvalaId)
+    {
+        throw new NotImplementedException();
+    }
+
+    public ZnanjeShortObject? AddZnanje(Guid clanId, ZnanjeCreation? znanje)
+    {
+        throw new NotImplementedException();
+    }
+
+    public ZnanjeShortObject? GetMaxZnanje(Guid clanId)
+    {
+        throw new NotImplementedException();
+    }
+
+    public ICollection<ClanListObject> GetSameZnanje(ZnanjeCreation? znanje)
+    {
+        throw new NotImplementedException();
+    }
+
+    public bool RemoveZnanje(Guid clanId, Guid znanjeId)
+    {
+        throw new NotImplementedException();
+    }
+
+    public DisplayPosProg? CreateProgram(PosProgCreation? program)
+    {
+        throw new NotImplementedException();
+    }
+
+    public DisplayClanskiProgram? AddProgram(Guid clanId, PosProgCreation? program)
+    {
+        throw new NotImplementedException();
+    }
+
+    public bool RemoveProgram(Guid clanId, Guid? program)
+    {
+        throw new NotImplementedException();
+    }
+
+    public ICollection<ClanShortObject> GetSameProgram(Guid programId)
+    {
+        throw new NotImplementedException();
+    }
+
+    public CFuncShortObject? CreateFunkcija(OFuncShortObject? funkcija)
+    {
+        throw new NotImplementedException();
+    }
+
+    public ICollection<OFuncShortObject> GetOdredskeFunkcije()
+    {
+        throw new NotImplementedException();
+    }
+
+    public ICollection<ClanShortObject> GetSameFunkcija(Guid oFuncId)
+    {
+        throw new NotImplementedException();
+    }
+
+    public CFuncShortObject? AddFunkcija(Guid clanId, Guid funkcijaId)
+    {
+        throw new NotImplementedException();
+    }
+
+    public bool FunkcijaActiveStateChange(Guid funkcijaId, bool state)
+    {
+        throw new NotImplementedException();
+    }
+
+    public ICollection<CFuncShortObject>? GetFunkcije(Guid clanId)
+    {
+        throw new NotImplementedException();
+    }
+
+    public ClanarinaShortObject? AddClanarina(Guid clanId, ClanarinaCreation? clanarina)
+    {
+        throw new NotImplementedException();
+    }
+
+    public bool RemoveClanarina(Guid clanarinaId)
+    {
+        throw new NotImplementedException();
     }
 }

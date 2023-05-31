@@ -156,8 +156,7 @@ public class ClanRepository : Repository<Clan>, IClanRepo
     public ICollection<Clan>? GetSameZnanje(ClanZnanje? znanje) {
         if (znanje is null) return null;
 
-        var func = (ClanZnanje z) => 
-            z.Znanje == znanje.Znanje && z.Broj == znanje.Broj;
+        var func = (ClanZnanje z) => z == znanje;
 
         return table.Include(c => c.Znanja)
             .Where(c => c.Znanja.FirstOrDefault(func) != null) //ovde ne moze is???
@@ -176,30 +175,47 @@ public class ClanRepository : Repository<Clan>, IClanRepo
         return true;
     }
 
-    public PosebanProgram? AddProgram(Guid clanId, PosebanProgram? program)
-    {
-        Clan? c = table.Find(clanId);
-        if (c is null || program is null) return null;
+    public PosebanProgram? CreateProgram(PosebanProgram? program) {
+        if (program is null) return null;
 
-        program.Clan = c;
-        ctx.PosebniProgrami.Add(program);
-        
-        Save();
+        if (ctx.PosebniProgrami.FirstOrDefault(pp => pp == program) is not null) 
+            return null;
 
         return program;
     }
 
+    public ClanProgram? AddProgram(Guid clanId, PosebanProgram? program)
+    {
+        Clan? c = table.Find(clanId);
+        if (c is null || program is null) return null;
+
+        ClanProgram cp = new ClanProgram().SetClan(c).SetProgram(program);
+        ctx.ClanskiProgrami.Add(cp);
+        
+        Save();
+
+        return cp;
+    }
+
     public bool RemoveProgram(Guid programId)
     {
-        PosebanProgram? pp = ctx.PosebniProgrami.Find(programId);
-        if (pp is null) return false;
+        ClanProgram? cp = ctx.ClanskiProgrami.Find(programId);
+        if (cp is null) return false;
 
-        ctx.Entry(pp).State = EntityState.Deleted;
+        ctx.ClanskiProgrami.Remove(cp);
         Save();
 
         return true;
     }
     
+    public ICollection<Clan>? GetSameProgram(Guid programId) {
+        PosebanProgram? p = ctx.PosebniProgrami.Include(pp => pp.ClanskiProgrami)
+            .FirstOrDefault(pp => pp.Id == programId);
+        if (p is null) return null;
+
+        return p.ClanskiProgrami.Select(cp => cp.Clan).ToList();
+    }
+
     public OdredskaFunkcija? CreateFunkcija(OdredskaFunkcija? funkcija)
     {
         if (funkcija is null) return null;
@@ -220,12 +236,22 @@ public class ClanRepository : Repository<Clan>, IClanRepo
         return of;
     }
 
-    public ClanFunkcija? AddFunkcija(Guid clanId, OdredskaFunkcija? funkcija)
+    public ICollection<Clan>? GetSameFunkcija(Guid id) {
+        OdredskaFunkcija? of = ctx.OdredskeFunkcije
+            .Include(func => func.ClanskeFunkcije)
+            .FirstOrDefault(func => func.Id == id);
+        if (of is null) return null;
+
+        return of.ClanskeFunkcije.Select(cf => cf.Clan).ToList();
+    }
+
+    public ClanFunkcija? AddFunkcija(Guid clanId, Guid funkcijaId)
     {
         Clan? c = table.Find(clanId);
+        OdredskaFunkcija? funkcija = ctx.OdredskeFunkcije.Find(funkcijaId);
         if (c is null || funkcija is null) return null;
 
-        ClanFunkcija cf = new() { TrenutnoAktivna = true, Clan = c, Funkcija = funkcija };
+        ClanFunkcija cf = new() { Aktivna = true, Clan = c, Funkcija = funkcija };
         
         Save();
         return cf;
@@ -236,7 +262,7 @@ public class ClanRepository : Repository<Clan>, IClanRepo
         ClanFunkcija? cf = ctx.FunkcijeClanova.Find(funkcijaId);
         if (cf is null) return false;
 
-        cf.TrenutnoAktivna = state;
+        cf.Aktivna = state;
         Save();
         return true;
     }
@@ -249,53 +275,53 @@ public class ClanRepository : Repository<Clan>, IClanRepo
         return c.Funkcije;
     }
 
-    public Akcija? AddAkcija(Guid clanId, Guid akcijaId)
-    {
-        Clan? c = table.Include(clan => clan.Akcije).FirstOrDefault(clan => clan.Id == clanId);
-        Akcija? a = ctx.Akcije.Include(akcija => akcija.Clanovi).FirstOrDefault(akcija => akcija.Id == akcijaId);
+    // public Akcija? AddAkcija(Guid clanId, Guid akcijaId)
+    // {
+    //     Clan? c = table.Include(clan => clan.Akcije).FirstOrDefault(clan => clan.Id == clanId);
+    //     Akcija? a = ctx.Akcije.Include(akcija => akcija.Clanovi).FirstOrDefault(akcija => akcija.Id == akcijaId);
 
-        if (c is null || a is null) return null;
+    //     if (c is null || a is null) return null;
 
-        c.Akcije.Add(a);
-        Save();
-        return a;
-    }
+    //     c.Akcije.Add(a);
+    //     Save();
+    //     return a;
+    // }
 
-    public bool RemoveAkcija(Guid clanId, Guid akcijaId)
-    {
-        Clan? c = table.Include(clan => clan.Akcije).FirstOrDefault(clan => clan.Id == clanId);
-        Akcija? a = ctx.Akcije.Include(akcija => akcija.Clanovi).FirstOrDefault(akcija => akcija.Id == akcijaId);
+    // public bool RemoveAkcija(Guid clanId, Guid akcijaId)
+    // {
+    //     Clan? c = table.Include(clan => clan.Akcije).FirstOrDefault(clan => clan.Id == clanId);
+    //     Akcija? a = ctx.Akcije.Include(akcija => akcija.Clanovi).FirstOrDefault(akcija => akcija.Id == akcijaId);
 
-        if (c is null || a is null) return false;
+    //     if (c is null || a is null) return false;
 
-        c.Akcije.Remove(a);
-        Save();
-        return true;
-    }
+    //     c.Akcije.Remove(a);
+    //     Save();
+    //     return true;
+    // }
 
-    public Tecaj? AddTecaj(Guid clanId, Guid tecajId)
-    {
-        Clan? c = table.Include(clan => clan.Tecajevi).FirstOrDefault(clan => clan.Id == clanId);
-        Tecaj? t = ctx.Tecajevi.Include(tecaj => tecaj.Clanovi).FirstOrDefault(tecaj => tecaj.Id == tecajId);
+    // public Tecaj? AddTecaj(Guid clanId, Guid tecajId)
+    // {
+    //     Clan? c = table.Include(clan => clan.Tecajevi).FirstOrDefault(clan => clan.Id == clanId);
+    //     Tecaj? t = ctx.Tecajevi.Include(tecaj => tecaj.Clanovi).FirstOrDefault(tecaj => tecaj.Id == tecajId);
 
-        if (c is null || t is null) return null;
+    //     if (c is null || t is null) return null;
 
-        c.Tecajevi.Add(t);
-        Save();
-        return t;
-    }
+    //     c.Tecajevi.Add(t);
+    //     Save();
+    //     return t;
+    // }
 
-    public bool RemoveTecaj(Guid clanId, Guid tecajId)
-    {
-        Clan? c = table.Include(clan => clan.Tecajevi).FirstOrDefault(clan => clan.Id == clanId);
-        Tecaj? t = ctx.Tecajevi.Include(tecaj => tecaj.Clanovi).FirstOrDefault(tecaj => tecaj.Id == tecajId);
+    // public bool RemoveTecaj(Guid clanId, Guid tecajId)
+    // {
+    //     Clan? c = table.Include(clan => clan.Tecajevi).FirstOrDefault(clan => clan.Id == clanId);
+    //     Tecaj? t = ctx.Tecajevi.Include(tecaj => tecaj.Clanovi).FirstOrDefault(tecaj => tecaj.Id == tecajId);
 
-        if (c is null || t is null) return false;
+    //     if (c is null || t is null) return false;
 
-        c.Tecajevi.Remove(t);
-        Save();
-        return true;
-    }
+    //     c.Tecajevi.Remove(t);
+    //     Save();
+    //     return true;
+    // }
 
     public Clanarina? AddClanarina(Guid clanId, Clanarina? clanarina)
     {

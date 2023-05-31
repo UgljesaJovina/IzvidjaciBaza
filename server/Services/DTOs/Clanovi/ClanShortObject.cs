@@ -8,27 +8,21 @@ public class ClanShortObject
     public Guid Id { get; set; }
     public string Ime { get; set; }
     public string Prezime { get; set; }
-    public DateTime DatumRodjenja { get; set; }
-    public string? Kategorija { get; set; }
-    public VodShortObject? Vod { get; set; }
-    public ICollection<FuncShortObject> Funkcije { get; set; }
     public bool Aktivan { get; set; }
 
-    public ClanShortObject(Guid id, string ime, string prezime, DateTime datumRodjenja, string? kategorija,
-        VodShortObject? vod, ICollection<FuncShortObject> funkcije, bool aktivan)
+    public ClanShortObject(Guid id, string ime, string prezime, bool aktivan)
     {
         Id = id;
         Ime = ime;
         Prezime = prezime;
-        DatumRodjenja = datumRodjenja;
-        Kategorija = kategorija;
-        Vod = vod;
-        Funkcije = funkcije;
         Aktivan = aktivan;
     }
 
-    public ClanShortObject(){}
+    public ClanShortObject(Clan c) : this(c.Id, c.Ime, c.Prezime, c.Aktivan) { }
 
-    public ClanShortObject(Clan clan) : this(clan.Id, clan.Ime, clan.Prezime, clan.DatumRodjenja, clan.Kategorija.ToString(), 
-            VodShortObject.GetShortObject(clan.Vod), FuncShortObject.TransformList(clan.Funkcije), clan.Aktivan) {}
+    public ClanShortObject() { }
+
+    public static ICollection<ClanShortObject> TransformList(ICollection<Clan> clanovi) {
+        return clanovi.Select(clan => new ClanShortObject(clan)).ToList();
+    }
 }

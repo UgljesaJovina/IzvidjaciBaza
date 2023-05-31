@@ -9,7 +9,7 @@ namespace Repositories.Models;
 
 public class Clanarina
 {
-    public Guid Id { get; set; }
+    public Guid Id { get; set; } = Guid.NewGuid();
     [Required]
     public DateTime DatumPlacanja { get; set; }
     [Required]
@@ -17,4 +17,13 @@ public class Clanarina
     public int? Iznos { get; set; }
     [Required]
     public Clan Clan { get; set; }
+
+    public Clanarina(DateTime datumPlacanja, int godinaClanarine, int? iznos)
+    {
+        DatumPlacanja = datumPlacanja;
+        GodinaClanarine = godinaClanarine;
+        Iznos = iznos;
+    }
+
+    public Clanarina() { }
 }

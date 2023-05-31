@@ -17,11 +17,11 @@ public class DisplayClan
     public VodShortObject? Vod { get; set; }
     public virtual ICollection<AkcijaShortObject> Akcije { get; set; }
     public virtual ICollection<TecajShortObject> Tecajevi { get; set; }
-    public virtual ICollection<FuncShortObject> Funkcije { get; set; }
+    public virtual ICollection<CFuncShortObject> Funkcije { get; set; }
     public virtual ICollection<ZnanjeShortObject> Znanja { get; set; }
     public virtual ICollection<PohvalaShortObject> Pohvale { get; set; }
     public virtual ICollection<KaznaShortObject> Kazne { get; set; }
-    public virtual ICollection<DisplayPosProg> PosebniProgrami { get; set; }
+    public virtual ICollection<DisplayClanskiProgram> PosebniProgrami { get; set; }
     public virtual ICollection<ClanarinaShortObject> PlaceneClanarine { get; set; }
 
     public DisplayClan(Clan clan)
@@ -38,11 +38,11 @@ public class DisplayClan
         Vod = VodShortObject.GetShortObject(clan.Vod);
         Akcije = AkcijaShortObject.TransformList(clan.Akcije);
         Tecajevi = TecajShortObject.TransformList(clan.Tecajevi);
-        Funkcije = FuncShortObject.TransformList(clan.Funkcije);
+        Funkcije = CFuncShortObject.TransformList(clan.Funkcije);
         Znanja = ZnanjeShortObject.TransformList(clan.Znanja);
         Pohvale = PohvalaShortObject.TransformList(clan.Pohvale);
         Kazne = KaznaShortObject.TransformList(clan.Kazne);
-        PosebniProgrami = DisplayPosProg.TransformList(clan.PosebniProgrami);
+        PosebniProgrami = DisplayClanskiProgram.TransformList(clan.PosebniProgrami);
         PlaceneClanarine = ClanarinaShortObject.TransfromList(clan.PlaceneClanarine);
     }
 

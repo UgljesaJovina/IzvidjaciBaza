@@ -7,7 +7,7 @@ namespace Repositories.Models;
 /// </summary>
 public class OblikAkcije
 {
-    public Guid Id { get; set; }
+    public Guid Id { get; set; } = Guid.NewGuid();
 
     [Required]
     [StringLength(30)]

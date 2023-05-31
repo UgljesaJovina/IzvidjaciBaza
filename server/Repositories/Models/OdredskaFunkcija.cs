@@ -14,5 +14,5 @@ public class OdredskaFunkcija
     [Required]
     [StringLength(30)]
     public string Naziv { get; set; }
-    public virtual ICollection<ClanFunkcija> FunkcijeClanova { get; set; } = new List<ClanFunkcija>();
+    public virtual ICollection<ClanFunkcija> ClanskeFunkcije { get; set; } = new List<ClanFunkcija>();
 }

@@ -62,7 +62,7 @@ public class Clan
     public virtual ICollection<ClanZnanje> Znanja { get; set; } = new List<ClanZnanje>();
     public virtual ICollection<Kazna> Kazne { get; set; } = new List<Kazna>();
     public virtual ICollection<Pohvala> Pohvale { get; set; } = new List<Pohvala>();
-    public virtual ICollection<PosebanProgram> PosebniProgrami { get; set; } = new List<PosebanProgram>();
+    public virtual ICollection<ClanProgram> PosebniProgrami { get; set; } = new List<ClanProgram>();
     public virtual ICollection<Clanarina> PlaceneClanarine { get; set; } = new List<Clanarina>();
 
     public Clan(string ime, string prezime, DateTime datumRodjenja, DateTime datumUclanjenja)

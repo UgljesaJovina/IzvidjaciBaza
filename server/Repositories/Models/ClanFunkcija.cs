@@ -10,8 +10,9 @@ namespace Repositories.Models;
 
 public class ClanFunkcija
 {
-    public Guid Id { get; set; }
-    public bool TrenutnoAktivna { get; set; }
+    public Guid Id { get; set; } = Guid.NewGuid();
+    public bool Aktivna { get; set; }
+    public DateTime DatumDobijanja { get; set; }
     public OdredskaFunkcija Funkcija { get; set; }
     public Clan Clan { get; set; }
 }

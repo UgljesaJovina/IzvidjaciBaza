@@ -27,6 +27,27 @@ public class AkcijaRepo : Repository<Akcija>, IAkcijaRepo
         return true;
     }
 
+    public ICollection<Clan?>? AddClanove(Guid akcijaId, ICollection<Guid> clanIds) {
+        List<Clan?> dodatiClanovi = new();
+        Akcija? a = table.Include(akcija => akcija.Clanovi)
+            .FirstOrDefault(akcija => akcija.Id == akcijaId);
+        if (a is null) return null;
+
+        foreach (var clanId in clanIds) {
+            Clan? c = ctx.Clanovi.Find(clanId);
+            if (c is null) {
+                dodatiClanovi.Add(null);
+                continue;
+            } 
+            dodatiClanovi.Add(c);
+            a.Clanovi.Add(c);
+        }
+
+        Save();
+
+        return dodatiClanovi;
+    }
+
     public bool RemoveClan(Guid akcijaId, Guid clanId)
     {
         Akcija? a = table.Include(akcija => akcija.Clanovi).FirstOrDefault(akcija => akcija.Id == akcijaId);

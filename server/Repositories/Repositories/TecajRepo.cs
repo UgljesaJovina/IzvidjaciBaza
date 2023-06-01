@@ -26,6 +26,28 @@ public class TecajRepo : Repository<Tecaj>, ITecajRepo
         
         return true;
     }
+    
+    public ICollection<Clan?>? AddClanove(Guid tecajId, ICollection<Guid> clanIds)
+    {
+        List<Clan?> dodatiClanovi = new();
+        Tecaj? t = table.Include(tecaj => tecaj.Clanovi)
+            .FirstOrDefault(tecaj => tecaj.Id == tecajId);
+        if (t is null) return null;
+
+        foreach (var clanId in clanIds) {
+            Clan? c = ctx.Clanovi.Find(clanId);
+            if (c is null) {
+                dodatiClanovi.Add(null);
+                continue;
+            } 
+            dodatiClanovi.Add(c);
+            t.Clanovi.Add(c);
+        }
+
+        Save();
+
+        return dodatiClanovi;
+    }
 
     public bool RemoveClan(Guid tecajId, Guid clanId)
     {
@@ -39,4 +61,5 @@ public class TecajRepo : Repository<Tecaj>, ITecajRepo
 
         return true;
     }
+
 }

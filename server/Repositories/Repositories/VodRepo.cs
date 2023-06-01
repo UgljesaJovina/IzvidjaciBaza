@@ -26,6 +26,28 @@ public class VodRepo : Repository<Vod>, IVodRepo
         
         return true;
     }
+    
+    public ICollection<Clan?>? AddClanove(Guid vodId, ICollection<Guid> clanIds)
+    {
+        List<Clan?> dodatiClanovi = new();
+        Vod? v = table.Include(vod => vod.Clanovi)
+            .FirstOrDefault(vod => vod.Id == vodId);
+        if (v is null) return null;
+
+        foreach (var clanId in clanIds) {
+            Clan? c = ctx.Clanovi.Find(clanId);
+            if (c is null) {
+                dodatiClanovi.Add(null);
+                continue;
+            } 
+            dodatiClanovi.Add(c);
+            v.Clanovi.Add(c);
+        }
+
+        Save();
+
+        return dodatiClanovi;
+    }
 
     public bool RemoveClan(Guid vodId, Guid clanId)
     {

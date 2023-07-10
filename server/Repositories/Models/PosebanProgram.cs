@@ -30,11 +30,17 @@ public class PosebanProgram
         Tip = tip;
     }
 
-    public static bool operator == (PosebanProgram pp1, PosebanProgram pp2) {
+    public static bool operator == (PosebanProgram? pp1, PosebanProgram? pp2) {
+        if (pp1 is null && pp2 is null) return true;
+        else if (pp1 is null || pp2 is null) return false;
+
         return pp1.Naziv == pp2.Naziv && pp1.Tip == pp2.Tip;
     }
 
-    public static bool operator != (PosebanProgram pp1, PosebanProgram pp2) {
+    public static bool operator != (PosebanProgram? pp1, PosebanProgram? pp2) {
+        if (pp1 is null && pp2 is null) return false;
+        else if (pp1 is null || pp2 is null) return true;
+
         return pp1.Naziv != pp2.Naziv || pp1.Tip != pp2.Tip;
     }
 }

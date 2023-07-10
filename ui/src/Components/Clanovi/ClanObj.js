@@ -99,58 +99,30 @@ export default function ClanObj() {
                 </div>
             </div>
             <div className="gridRow">
-                <div>
-                    <label>Akcije</label>
-                    <div className="objList">
-                        
-                    </div>
-                </div>
-                <div>
-                    <label>Tecajevi</label>
-                    <div className="objList">
-                        
-                    </div>
-                </div>
+                <ShortObjectList title={"Akcije"} addFunc={setCreateKaznaModal} >
+                </ShortObjectList>
+                <ShortObjectList title={"Tecajevi"} addFunc={setCreateKaznaModal} >
+                </ShortObjectList>
             </div>
             <div className="gridRow">
-                <div>
-                    <label>Poseban program</label>
-                    <div className="objList">
-                        
-                    </div>
-                </div>
-                <div>
-                    <label>Znanja</label>
-                    <div className="objList">
-
-                    </div>
-                </div>
+                <ShortObjectList title={"Poseban Program"} addFunc={setCreateKaznaModal} >
+                </ShortObjectList>
+                <ShortObjectList title={"Znanja"} addFunc={setCreateKaznaModal} >
+                </ShortObjectList>
             </div>
             <div className="gridRow">
-                <div>
-                    <label>Pohvale</label>
-                    <div className="objList">
-
-                    </div>
-                </div>
+                <ShortObjectList title={"Pohvale"} addFunc={setCreateKaznaModal} >
+                </ShortObjectList>
                 <ShortObjectList title={"Kazne"} addFunc={setCreateKaznaModal} >
                     {clan.kazne.map(k => <KaznaShortObject key={k.id} id={k.id} text={k.opis} expired={new Date() > new Date(k.datumIsteka)} 
                         openModal={openKaznaModal} delFunc={() => deleteKazna(k.id)} />)}
                 </ShortObjectList>
             </div>
             <div className="gridRow">
-                <div>
-                    <label>Placene Clanarine</label>
-                    <div className="objList">
-
-                    </div>
-                </div>
-                <div>
-                    <label>Funkcije</label>
-                    <div className="objList">
-
-                    </div>
-                </div>
+                <ShortObjectList title={"Placene Clanarine"} addFunc={setCreateKaznaModal} >
+                </ShortObjectList>
+                <ShortObjectList title={"Funkcije"} addFunc={setCreateKaznaModal} >
+                </ShortObjectList>
             </div>
         </div>
         <DeletionModal message={`Da li ste sigurni da zelite da obrisete clana '${clan.ime} ${clan.prezime}'?`} modal={deleteModal}

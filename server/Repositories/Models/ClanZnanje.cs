@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using Repositories.Enums;
 
 namespace Repositories.Models;
@@ -20,6 +21,9 @@ public class ClanZnanje
     [Required]
     public int Broj { get; set; }
     public DateTime DatumDobijanja { get; set; }
+
+    [NotMapped]
+    public int ZnanjeValue { get { return ((int)Znanje * 10) + Broj; }}
 
     public ClanZnanje(Znanje znanje, int broj, DateTime datumDobijanja)
     {

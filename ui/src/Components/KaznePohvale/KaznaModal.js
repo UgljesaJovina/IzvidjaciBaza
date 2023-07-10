@@ -12,8 +12,7 @@ export default function KaznaModal({kazna, modal, setModal}) {
                 <div><label>Datum isteka kazne:   {new Date(kazna.datumIsteka).toLocaleDateString("sr")}</label></div>
                 <div>
                     <label>Razlog za kaznu: </label>
-                    <textarea value={kazna.opis} readOnly style={{verticalAlign:"top", resize:"none", width:"60%", 
-                        height:"200px", fontSize:"18px", border:"none", backgroundColor:"darkslategray", color:"white", padding:"1%"}} ></textarea>
+                    <textarea value={kazna.opis} readOnly></textarea>
                 </div>
             </div>
         </div>

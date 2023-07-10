@@ -53,13 +53,13 @@
 .viewGrid {
     display: flex;
     flex-direction: column;
-    margin: 2%;
+    margin: 1% 2%;
 }
 
 .gridRow {
     display: flex;
-    background-color: #b3cbe4;
-    margin-bottom: 2%;
+    background-color: #6998ca;
+    margin-bottom: 1%;
 }
 
 .gridRow>div {
@@ -69,7 +69,7 @@
 }
 
 .gridRow label { 
-    font-size: 1.25em;
+    font-size: 1.5em;
     text-align: center;
 }
 
@@ -82,6 +82,7 @@
     align-self: center;
     height: 1.5rem;
     transition: font-size .15s;
+    margin-bottom: 1.5%;
 }
 
 .gridRow.info>div {
@@ -89,13 +90,13 @@
 }
 
 .gridRow.info label:hover {
-    font-size: 1.5em;
+    font-size: 1.75em;
 }
 
 .gridRow:not(.info)>div>label {
     margin: 2% 5% 0;
     padding: 0 2%;
-    font-size: x-large;
+    font-size: 2.25m;
     text-align: start;
     border-bottom: 1px black solid;
 }
@@ -110,7 +111,7 @@
 .listTitle>label {
     margin: 0 2%;
     padding: 0;
-    font-size: x-large;
+    font-size: 2em;
     text-align: start;
 }
 
@@ -145,17 +146,17 @@
 
 .shortObject {
     padding: 1% 0;
-    background-color: rgb(218, 218, 218);
+    background-color: #bcb9b9;
     transition: all .25s;
     cursor: pointer;
 }
 
 .shortObject:hover {
-    background-color: rgb(232, 232, 232);
+    background-color: rgb(147, 145, 145);
 }
 
 .shortObject.expired {
-    background-color: #fb2222;
+    background-color: #f75e5e;
     color: white;
 }
 

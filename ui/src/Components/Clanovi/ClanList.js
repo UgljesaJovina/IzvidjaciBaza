@@ -30,7 +30,7 @@ export default function Clanovi() {
                     <label>Kategorija</label>
                 </div>
                 {clanovi.map((el, i) => <ClanListObj key={el.id} id={el.id} br={i+1} ime={el.ime} prezime={el.prezime} 
-                    vod={el.vod} datumRodjenja={el.datumRodjenja} kategorija={el.kategorija} />)}
+                    vod={el.vod} datumRodjenja={el.datumRodjenja} kategorija={el.kategorija} aktivan={el.aktivan} />)}
             </div>
             <CreateClan modal={modal} setModal={setModal} setLista={setClanovi} />
         </div>

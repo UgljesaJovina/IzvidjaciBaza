@@ -20,7 +20,7 @@ public class ClanRepository : Repository<Clan>, IClanRepo
 
     public ICollection<Clan> GetActive()
     {
-        return table.Where(c => c.Aktivan).ToList();
+        return table.OrderBy(c => !c.Aktivan).ToList();
     }
 
     public override Clan? GetById(Guid id)
@@ -43,7 +43,7 @@ public class ClanRepository : Repository<Clan>, IClanRepo
 
         if (clan is null) return false;
 
-        clan.Aktivan = false;
+        clan.Aktivan = !clan.Aktivan;
         Save();
         return true;
     }
@@ -142,12 +142,13 @@ public class ClanRepository : Repository<Clan>, IClanRepo
     {
         Clan? c = table.Include(clan => clan.Znanja)
             .FirstOrDefault(clan => clan.Id == clanId);
-        if (c is null || c.Znanja.Count < 1) return null;
+        if (c is null) return null;
+        if (c.Znanja.Count < 1) return null;
 
         ClanZnanje maxZnanje = c.Znanja.First();
         foreach (var cz in c.Znanja)
         {
-            if (cz.Znanje + cz.Broj > maxZnanje.Broj + maxZnanje.Znanje) maxZnanje = cz;
+            if (cz.ZnanjeValue > maxZnanje.ZnanjeValue) maxZnanje = cz;
         }
 
         return maxZnanje;

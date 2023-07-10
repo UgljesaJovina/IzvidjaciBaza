@@ -1,13 +1,13 @@
 import { useNavigate } from "react-router";
 
-export default function ClanListObj({id, br, ime, prezime, funkcije, vod, datumRodjenja, kategorija}) {
+export default function ClanListObj({id, br, ime, prezime, funkcije, vod, datumRodjenja, kategorija, aktivan}) {
 
     const navigate = useNavigate();
     const _datum = new Date(datumRodjenja);
     _datum.setMinutes(_datum.getMinutes() - _datum.getTimezoneOffset());
 
     return (
-        <div className="row" onClick={() => navigate(`clan/${id}`)}>
+        <div className={`row ${aktivan ? "" : "inactive"}`} onClick={() => navigate(`clan/${id}`)}>
             <label style={{flex:"1", border:"none"}}>{br}.</label>
             <label>{ime} {prezime}</label>
             <label>{funkcije ? funkcije.map(f => f.naziv).join(", ") : <span>Nema</span> }</label>
